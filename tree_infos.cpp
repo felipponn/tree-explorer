@@ -34,3 +34,13 @@ bool complete(Node* root)
             return false;
     return complete(root->left) && complete(root->right);
 }
+
+bool perfect(Node* root)
+{
+    if (root == nullptr)
+        return true;
+    else if (height(root->left) == height(root->right))
+        return perfect(root->left) && perfect(root->right);
+    else
+        return false;
+}
