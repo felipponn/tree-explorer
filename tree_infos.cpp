@@ -16,3 +16,11 @@ int height(Node* root)
     else
         return 1 + max(height(root->left), height(root->right));
 }
+
+int size(Node* root)
+{
+    if (root == nullptr)
+        return 0;
+    else
+        return 1 + size(root->left) + size(root->right);
+}
