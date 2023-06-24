@@ -24,3 +24,13 @@ int size(Node* root)
     else
         return 1 + size(root->left) + size(root->right);
 }
+
+bool complete(Node* root)
+{
+    if (root->right == nullptr || root->left == nullptr)
+        if (root->right == nullptr && root->left == nullptr)
+            return true;
+        else
+            return false;
+    return complete(root->left) && complete(root->right);
+}
