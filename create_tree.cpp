@@ -16,7 +16,6 @@ struct Node* newNode(int iData)
     newNode->iPayload = iData;
     newNode->ptrLeft = nullptr;
     newNode->ptrRight = nullptr;
-
     return newNode;
 }
 
@@ -72,4 +71,52 @@ void traversePostOrder(struct Node* ptrStartingNode)
         // Imprime o valor do nó atual
         cout << " " << ptrStartingNode->iPayload;
     }
+}
+
+// Deleta um nó da árvore
+struct Node* deleteNode(struct Node* node, int iData)
+{
+    if (node == nullptr) return node;
+    // Se o valor a ser deletado for menor que o valor do nó atual, o valor
+    // será deletado à esquerda por recursão
+    else if (iData < node->iPayload) node->ptrLeft = deleteNode(node->ptrLeft, iData);
+    // Caso contrário, o valor será deletado à direita por recursão
+    else if (iData > node->iPayload) node->ptrRight = deleteNode(node->ptrRight, iData);
+    // Se o valor a ser deletado for igual ao valor do nó atual, o nó será deletado
+    else
+    {
+        // Se o nó não tiver filhos, ele será deletado
+        if (node->ptrLeft == nullptr && node->ptrRight == nullptr)
+        {
+            free(node);
+            node = nullptr;
+        }
+        // Se o nó tiver apenas um filho (à direita), o nó será deletado e o filho
+        // ocupará seu lugar
+        else if (node->ptrLeft == nullptr)
+        {
+            struct Node* ptrTemp = node;
+            node = node->ptrRight;
+            free(ptrTemp);
+        }
+        // Se o nó tiver apenas um filho (à esquerda), o nó será deletado e o filho
+        // ocupará seu lugar
+        else if (node->ptrRight == nullptr)
+        {
+            struct Node* ptrTemp = node;
+            node = node->ptrLeft;
+            free(ptrTemp);
+        }
+        // Se o nó tiver dois filhos, o nó será deletado e o menor valor da sub-árvore
+        // à direita ocupará seu lugar (o menor valor da sub-árvore à direita é o
+        // valor mais à esquerda da sub-árvore à direita)
+        else
+        {
+            struct Node* temp = node->ptrRight;
+            while (temp->ptrLeft != nullptr) temp = temp->ptrLeft;
+            node->iPayload = temp->iPayload;
+            node->ptrRight = deleteNode(node->ptrRight, temp->iPayload);
+        }
+    }
+    return node;
 }
