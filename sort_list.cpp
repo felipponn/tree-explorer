@@ -153,6 +153,31 @@ void swap(Node** ppHead, Node** ppTail, Node* pNode1, Node* pNode2) {
     }
 }
 
+void bubbleSort(Node** ppHead, Node** ppTail) {
+    // Lista vazia ou com apenas um elemento, não precisa ordenar
+    if (*ppHead == nullptr || (*ppHead)->pNext == nullptr) {
+        return; 
+    }
+    
+    bool bSwapped = true;
+    Node* pCurrent;
+    while (bSwapped) {
+        bSwapped = false;
+        pCurrent = *ppHead;
+        // Percorre a lista trocando os nós adjacentes
+        while (pCurrent->pNext != nullptr) {
+            if (pCurrent->nData > pCurrent->pNext->nData) {
+                // Troca os nós
+                // Ao trocar os nós, não é necessário atualizar o ponteiro
+                swap(ppHead, ppTail, pCurrent, pCurrent->pNext);
+                bSwapped = true;
+            } else {
+                pCurrent = pCurrent->pNext;
+            }
+        }
+    }
+}
+
 
 // =============== Terceira Parte ===============
 // main apenas para testar as funções
@@ -173,7 +198,9 @@ int main() {
 
     printList(pHead);
 
-    swap(&pHead, &pTail, pHead->pNext->pNext, pTail->pPrev->pPrev);
+    //swap(&pHead, &pTail, pHead->pNext->pNext, pTail->pPrev->pPrev);
+
+    bubbleSort(&pHead, &pTail);
 
     printList(pHead);
 }
