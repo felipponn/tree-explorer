@@ -3,64 +3,177 @@ using namespace std;
 
 // =============== Primeira Parte ===============
 // Funções para criar a lista, inserir elementos e imprimir a lista
+// Notação seguida: https://pt.wikipedia.org/wiki/Nota%C3%A7%C3%A3o_h%C3%BAngara
 
 
-// Estrutura do nó da lista
 struct Node {
-    int data;
-    Node* prev;
-    Node* next;
+    int nData;
+    Node* pPrev;
+    Node* pNext;
 };
 
 // Função para criar um novo nó
-Node* create_node(int data) {
-    Node* new_node = new Node;
-    new_node->data = data;
-    new_node->prev = nullptr;
-    new_node->next = nullptr;
-    return new_node;
+Node* createNode(int nData) {
+    Node* pNewNode = new Node;
+    pNewNode->nData = nData;
+    pNewNode->pPrev = nullptr;
+    pNewNode->pNext = nullptr;
+    return pNewNode;
 }
 
 // Função para inserir um novo nó no final da lista
-void insert_back(Node** head, Node** tail, int data) {
-    Node* new_node = create_node(data);
-    if (*head == nullptr) {
-        *head = new_node;
+void insertBack(Node** ppHead, Node** ppTail, int nData) {
+    Node* pNewNode = createNode(nData);
+    if (*ppHead == nullptr) {
+        *ppHead = pNewNode;
     } else {
-        (*tail)->next = new_node;
-        new_node->prev = *tail;
+        (*ppTail)->pNext = pNewNode;
+        pNewNode->pPrev = *ppTail;
     }
-    *tail = new_node;
+    *ppTail = pNewNode;
 }
 
-void printList(Node* head) {
-    Node* current = head;
-    while (current != nullptr) {
-        cout << current->data << " ";
-        current = current->next;
+// Função para imprimir a lista
+void printList(Node* pHead) {
+    Node* pCurrent = pHead;
+    while (pCurrent != nullptr) {
+        cout << pCurrent->nData << " ";
+        pCurrent = pCurrent->pNext;
     }
-    cout << endl;
-    cout << endl;
+    cout << endl << endl;
 }
 
+
+// =============== Segunda Parte ===============
+// Função para trocar dois nós de lugar
+// Funções de ordenação de lista duplamente encadeada
+// Funções: bubbleSort, selectionSort, insertionSort, mergeSort
+
+// Função swap para lista duplamente encadeada
+void swap(Node** ppHead, Node** ppTail, Node* pNode1, Node* pNode2) {
+    if (*ppHead == nullptr || *ppTail == nullptr) {
+        // Lista vazia, não há nada para trocar
+        return;
+    }
+    
+    // Verifica se os nós são os mesmos
+    if (pNode1 == pNode2) {
+        return;
+    }
+
+    // Verifica se os nós são adjacentes (pNode1 -> pNode2)
+    if (pNode1->pNext == pNode2) {
+        // Troca os nós adjacentes
+        Node* pPrev1 = pNode1->pPrev;
+        Node* pNext2 = pNode2->pNext;
+
+        // Nó anterior ao pNode1 apontará para o pNode2
+        if (pPrev1 != nullptr) {
+            pPrev1->pNext = pNode2;
+        } else {
+            *ppHead = pNode2;
+        }
+
+        // Nó posterior ao pNode2 apontará para o pNode1
+        if (pNext2 != nullptr) {
+            pNext2->pPrev = pNode1;
+        } else {
+            *ppTail = pNode1;
+        }
+
+        pNode2->pPrev = pPrev1;
+        pNode2->pNext = pNode1;
+        pNode1->pPrev = pNode2;
+        pNode1->pNext = pNext2;
+
+    // Verifica se os nós são adjacentes (pNode2 -> pNode1)
+    } else if (pNode2->pNext == pNode1) {
+        // Troca os nós adjacentes
+        Node* pPrev2 = pNode2->pPrev;
+        Node* pNext1 = pNode1->pNext;
+
+        // Nó anterior ao pNode2 apontará para o pNode1
+        if (pPrev2 != nullptr) {
+            pPrev2->pNext = pNode1;
+        } else {
+            *ppHead = pNode1;
+        }
+        
+        // Nó posterior ao pNode1 apontará para o pNode2
+        if (pNext1 != nullptr) {
+            pNext1->pPrev = pNode2;
+        } else {
+            *ppTail = pNode2;
+        }
+
+        pNode1->pPrev = pPrev2;
+        pNode1->pNext = pNode2;
+        pNode2->pPrev = pNode1;
+        pNode2->pNext = pNext1;
+
+    // Os nós não são adjacentes
+    } else {
+        Node* pPrev1 = pNode1->pPrev;
+        Node* pNext1 = pNode1->pNext;
+        Node* pPrev2 = pNode2->pPrev;
+        Node* pNext2 = pNode2->pNext;
+
+        // Etapa 1: Nó anterior ao pNode1 apontará para o pNode2 (Next)
+        if (pPrev1 != nullptr) {
+            pPrev1->pNext = pNode2;
+        } else {
+            *ppHead = pNode2;
+        }
+
+        // Etapa 2: Nó posterior ao pNode1 apontará para o pNode2 (Prev)
+        if (pNext1 != nullptr) {
+            pNext1->pPrev = pNode2;
+        } else {
+            *ppTail = pNode2;
+        }
+
+        // Etapa 3: Nó anterior ao pNode2 apontará para o pNode1 (Next)
+        if (pPrev2 != nullptr) {
+            pPrev2->pNext = pNode1;
+        } else {
+            *ppHead = pNode1;
+        }
+
+        // Etapa 4: Nó posterior ao pNode2 apontará para o pNode1 (Prev)
+        if (pNext2 != nullptr) {
+            pNext2->pPrev = pNode1;
+        } else {
+            *ppTail = pNode1;
+        }
+
+        pNode1->pPrev = pPrev2;
+        pNode1->pNext = pNext2;
+        pNode2->pPrev = pPrev1;
+        pNode2->pNext = pNext1;
+    }
+}
 
 
 // =============== Terceira Parte ===============
 // main apenas para testar as funções
 // Não é necessário implementar nada aqui
 
-int main(){
-    Node* head = nullptr;
-    Node* tail = nullptr;
+int main() {
+    Node* pHead = nullptr;
+    Node* pTail = nullptr;
 
-    insert_back(&head, &tail, 8);
-    insert_back(&head, &tail, 3);
-    insert_back(&head, &tail, 2);
-    insert_back(&head, &tail, 5);
-    insert_back(&head, &tail, 7);
-    insert_back(&head, &tail, 4);
-    insert_back(&head, &tail, 1);
-    insert_back(&head, &tail, 6);
+    insertBack(&pHead, &pTail, 8);
+    insertBack(&pHead, &pTail, 3);
+    insertBack(&pHead, &pTail, 2);
+    insertBack(&pHead, &pTail, 5);
+    insertBack(&pHead, &pTail, 7);
+    insertBack(&pHead, &pTail, 4);
+    insertBack(&pHead, &pTail, 1);
+    insertBack(&pHead, &pTail, 6);
 
-    printList(head);
+    printList(pHead);
+
+    swap(&pHead, &pTail, pHead->pNext->pNext, pTail->pPrev->pPrev);
+
+    printList(pHead);
 }
