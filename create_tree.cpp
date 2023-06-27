@@ -120,3 +120,17 @@ struct Node* deleteNode(struct Node* node, int iData)
     }
     return node;
 }
+
+// Busca o endereço de memória de um nó na árvore
+struct Node* searchNode(struct Node* node, int iData)
+{
+    if (node == nullptr) return nullptr;
+    // Se o valor a ser buscado for igual ao valor do nó atual, o endereço de memória
+    // do nó atual será retornado
+    else if (iData == node->iPayload) return node;
+    // Se o valor a ser buscado for menor que o valor do nó atual, a busca será feita
+    // à esquerda por recursão
+    else if (iData < node->iPayload) return searchNode(node->ptrLeft, iData);
+    // Caso contrário, a busca será feita à direita por recursão
+    else return searchNode(node->ptrRight, iData);
+}
