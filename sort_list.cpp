@@ -178,6 +178,44 @@ void bubbleSort(Node** ppHead, Node** ppTail) {
     }
 }
 
+//14. Uma das opções deve converter a árvore em uma lista e ordenar com Selection Sort
+
+void selectionSort(Node** ppHead, Node** ppTail) {
+    if (*ppHead == nullptr || (*ppHead)->pNext == nullptr) {
+        // Lista vazia ou com apenas um elemento, não precisa ordenar
+        return;
+    }
+
+    Node* pCurrent = *ppHead;
+
+    while (pCurrent->pNext != nullptr) {
+        Node* pMinNode = pCurrent;
+        Node* pTemp = pCurrent->pNext;
+
+        // Encontra o nó com o menor valor
+        while (pTemp != nullptr) {
+            if (pTemp->nData < pMinNode->nData) {
+                pMinNode = pTemp;
+            }
+
+            pTemp = pTemp->pNext;
+        }
+
+        // Verifica se o nó mínimo é diferente do nó atual
+        if (pMinNode != pCurrent) {
+            // Troca os nós
+            swap(ppHead, ppTail, pCurrent, pMinNode);
+
+            // Atualiza o ponteiro tail, se necessário
+            if (pMinNode == *ppTail) {
+                *ppTail = pCurrent;
+            }
+        }
+
+        pCurrent = pMinNode->pNext;
+    }
+}
+
 
 // =============== Terceira Parte ===============
 // main apenas para testar as funções
@@ -200,7 +238,8 @@ int main() {
 
     //swap(&pHead, &pTail, pHead->pNext->pNext, pTail->pPrev->pPrev);
 
-    bubbleSort(&pHead, &pTail);
+    //bubbleSort(&pHead, &pTail);
+    selectionSort(&pHead, &pTail);
 
     printList(pHead);
 }
