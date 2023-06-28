@@ -158,3 +158,25 @@ struct Node* constructTreeFromFile(const string& strFileName)
     inputFile.close();
     return ptrRoot;
 }
+
+// Constrói uma árvore binária de busca a partir de dados inseridos pelo usuário
+struct Node* constructTreeFromUserInput()
+{
+    struct Node* ptrRoot = nullptr;
+    int iData;
+    // Lê os dados inseridos pelo usuário e insere-os na árvore
+    while (true)
+    {
+        cout << "Digite um valor inteiro (0 para sair): ";
+        cin >> iData;
+        if (iData == 0)
+        {
+            cout << "Você realmente deseja sair? (S/s): ";
+            char cAnswer;
+            cin >> cAnswer;
+            if (cAnswer == 'S' || cAnswer == 's') break;
+        }
+        ptrRoot = insertNode(ptrRoot, iData);
+    }
+    return ptrRoot;
+}
