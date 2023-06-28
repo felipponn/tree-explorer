@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -133,4 +134,27 @@ struct Node* searchNode(struct Node* node, int iData)
     else if (iData < node->iPayload) return searchNode(node->ptrLeft, iData);
     // Caso contrário, a busca será feita à direita por recursão
     else return searchNode(node->ptrRight, iData);
+}
+
+// Constrói uma árvore binária de busca a partir de um arquivo texto
+struct Node* constructTreeFromFile(const string& strFileName)
+{
+    // Abre o arquivo
+    ifstream inputFile(strFileName);
+    // Se o arquivo não puder ser aberto, uma mensagem de erro será exibida
+    if (!inputFile.is_open())
+    {
+        cout << "Erro ao abrir o arquivo " << strFileName << endl;
+        return nullptr;
+    }
+    struct Node* ptrRoot = nullptr;
+    int iData;
+    // Lê os dados do arquivo e insere-os na árvore
+    while (inputFile >> iData)
+    {
+        ptrRoot = insertNode(ptrRoot, iData);
+    }
+    // Fecha o arquivo
+    inputFile.close();
+    return ptrRoot;
 }
