@@ -1,9 +1,9 @@
 # include <iostream>
 
-int height(struct Node* root);
+int height(struct Node*);
 
-int size(struct Node* root);
+int size(struct Node*);
 
-bool complete(struct Node* root);
+bool complete(struct Node*);
 
-bool perfect(struct Node* root);
+bool perfect(struct Node*);

@@ -4,43 +4,43 @@ using namespace std;
 
 struct Node
 {
-    int data;
-    Node* left;
-    Node* right;
+    int iPayload;
+    struct Node* ptrLeft;
+    struct Node* ptrRight;
 };
 
-int height(Node* root)
+int height(struct Node* node)
 {
-    if (root == nullptr)
+    if (node == nullptr) // caso base
         return 0;
     else
-        return 1 + max(height(root->left), height(root->right));
+        return 1 + max(height(node->ptrLeft), height(node->ptrRight)); // calcula a altura da subárvore esquerda e direita
 }
 
-int size(Node* root)
+int size(struct Node* node)
 {
-    if (root == nullptr)
+    if (node == nullptr) // caso base
         return 0;
     else
-        return 1 + size(root->left) + size(root->right);
+        return 1 + size(node->ptrLeft) + size(node->ptrRight); // calcula o tamanho da subárvore esquerda e direita
 }
 
-bool complete(Node* root)
+bool complete(struct Node* node)
 {
-    if (root->right == nullptr || root->left == nullptr)
-        if (root->right == nullptr && root->left == nullptr)
+    if (node->ptrRight == nullptr || node->ptrLeft == nullptr) // caso base
+        if (node->ptrRight == nullptr && node->ptrLeft == nullptr) // verifica se o nó é folha
             return true;
         else
             return false;
-    return complete(root->left) && complete(root->right);
+    return complete(node->ptrLeft) && complete(node->ptrRight); // verifica se a subárvore esquerda e direita são completas
 }
 
-bool perfect(Node* root)
+bool perfect(struct Node* node)
 {
-    if (root == nullptr)
+    if (node == nullptr) // caso base
         return true;
-    else if (height(root->left) == height(root->right))
-        return perfect(root->left) && perfect(root->right);
+    else if (height(node->ptrLeft) == height(node->ptrRight)) // verifica se a altura da subárvore esquerda é igual a da direita
+        return perfect(node->ptrLeft) && perfect(node->ptrRight); // verifica se a subárvore esquerda e direita são perfeitas
     else
         return false;
 }
