@@ -51,7 +51,29 @@ void printList(NodeList* pHead) {
 
 
 // ================================================================================= //
-// ------------------------------ Primeira Parte -----------------------------------
+// ------------------------------- Segunda Parte -----------------------------------
+// Função para trocar dois nós de lugar
+// Funções de ordenação de lista duplamente encadeada
+// Funções: bubbleSort, selectionSort, insertionSort, mergeSort
+// ================================================================================= //
+
+
+// Percorre a árvore com pré-ordem e insere os nós na lista
+void treeToDoublyLinkedList(struct Node* root, NodeList** ppHead, NodeList** ppTail) {
+    if (root == nullptr) return;
+    
+    // Inserir o nó atual no final da lista
+    insertBack(ppHead, ppTail, root->iPayload);
+
+    // Converter a subárvore esquerda em uma lista duplamente encadeada
+    treeToDoublyLinkedList(root->ptrLeft, ppHead, ppTail);
+    
+    // Converter a subárvore direita em uma lista duplamente encadeada
+    treeToDoublyLinkedList(root->ptrRight, ppHead, ppTail);
+}
+
+// ================================================================================= //
+// ------------------------------- Terceira Parte ----------------------------------
 // Função para trocar dois nós de lugar
 // Funções de ordenação de lista duplamente encadeada
 // Funções: bubbleSort, selectionSort, insertionSort, mergeSort
@@ -346,35 +368,50 @@ void shellSort(NodeList** ppHead, NodeList** ppTail) {
     }
 }
 
-
-
-// =============== Terceira Parte ===============
-// main apenas para testar as funções
-// Não é necessário implementar nada aqui
-
-
 int main() {
-    NodeList* pHead = nullptr;
-    NodeList* pTail = nullptr;
+    // NodeList* pHead = nullptr;
+    // NodeList* pTail = nullptr;
 
-    insertBack(&pHead, &pTail, 8);
-    insertBack(&pHead, &pTail, 3);
-    insertBack(&pHead, &pTail, 2);
-    insertBack(&pHead, &pTail, 5);
-    insertBack(&pHead, &pTail, 7);
-    insertBack(&pHead, &pTail, 4);
-    insertBack(&pHead, &pTail, 1);
-    insertBack(&pHead, &pTail, 6);
+    // insertBack(&pHead, &pTail, 8);
+    // insertBack(&pHead, &pTail, 3);
+    // insertBack(&pHead, &pTail, 2);
+    // insertBack(&pHead, &pTail, 5);
+    // insertBack(&pHead, &pTail, 7);
+    // insertBack(&pHead, &pTail, 4);
+    // insertBack(&pHead, &pTail, 1);
+    // insertBack(&pHead, &pTail, 6);
 
-    printList(pHead);
+    // printList(pHead);
 
     // swap(&pHead, &pTail, pHead->pNext->pNext, pTail->pPrev->pPrev);
 
     // bubbleSort(&pHead, &pTail);
     // selectionSort(&pHead, &pTail);
     // insertionSort(&pHead, &pTail);
-    shellSort(&pHead, &pTail);
+    // shellSort(&pHead, &pTail);
+
+    // printList(pHead);
+
+    // Código para criar a árvore
+    struct Node* pRoot = nullptr;
+    pRoot = insertNode(pRoot, 4);
+    pRoot = insertNode(pRoot, 2);
+    pRoot = insertNode(pRoot, 5);
+    pRoot = insertNode(pRoot, 1);
+    pRoot = insertNode(pRoot, 3);
+
+    traversePreOrder(pRoot);
+    cout << endl;
+
+    NodeList* pHead = nullptr;
+    NodeList* pTail = nullptr;
+    treeToDoublyLinkedList(pRoot, &pHead, &pTail);
 
     printList(pHead);
-    
+
+    bubbleSort(&pHead, &pTail);
+
+    printList(pHead);
+
+
 }
