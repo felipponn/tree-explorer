@@ -5,13 +5,14 @@ using namespace std;
 
 int main()
 {
-    struct Node* ptrRoot = newNode(10);
-    ptrRoot->ptrLeft = newNode(5);
-    ptrRoot->ptrRight = newNode(15);
-    ptrRoot->ptrLeft->ptrLeft = newNode(3);
-    ptrRoot->ptrLeft->ptrRight = newNode(7);
-    ptrRoot->ptrRight->ptrLeft = newNode(13);
-    ptrRoot->ptrRight->ptrRight = newNode(17);
+    struct Node* ptrRoot = nullptr;
+    ptrRoot = insertNode(ptrRoot, 10);
+    ptrRoot = insertNode(ptrRoot, 5);
+    ptrRoot = insertNode(ptrRoot, 15);
+    ptrRoot = insertNode(ptrRoot, 3);
+    ptrRoot = insertNode(ptrRoot, 7);
+    ptrRoot = insertNode(ptrRoot, 13);
+    ptrRoot = insertNode(ptrRoot, 17);
 
     cout << "traversePreOrder:";
     traversePreOrder(ptrRoot);
