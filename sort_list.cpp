@@ -1,20 +1,26 @@
 #include <iostream>
+#include <fstream>
+#include "create_tree.h"
+
 using namespace std;
 
-// =============== Primeira Parte ===============
+// ================================================================================= //
+// ------------------------------ Primeira Parte -----------------------------------
 // Funções para criar a lista, inserir elementos e imprimir a lista
 // Notação seguida: https://pt.wikipedia.org/wiki/Nota%C3%A7%C3%A3o_h%C3%BAngara
+// ================================================================================= //
 
 
-struct Node {
+// Estrutura para um nó da lista duplamente encadeada
+struct NodeList {
     int nData;
-    Node* pPrev;
-    Node* pNext;
+    NodeList* pPrev;
+    NodeList* pNext;
 };
 
 // Função para criar um novo nó
-Node* createNode(int nData) {
-    Node* pNewNode = new Node;
+NodeList* createNode(int nData) {
+    NodeList* pNewNode = new NodeList;
     pNewNode->nData = nData;
     pNewNode->pPrev = nullptr;
     pNewNode->pNext = nullptr;
@@ -22,8 +28,8 @@ Node* createNode(int nData) {
 }
 
 // Função para inserir um novo nó no final da lista
-void insertBack(Node** ppHead, Node** ppTail, int nData) {
-    Node* pNewNode = createNode(nData);
+void insertBack(NodeList** ppHead, NodeList** ppTail, int nData) {
+    NodeList* pNewNode = createNode(nData);
     if (*ppHead == nullptr) {
         *ppHead = pNewNode;
     } else {
@@ -34,8 +40,8 @@ void insertBack(Node** ppHead, Node** ppTail, int nData) {
 }
 
 // Função para imprimir a lista
-void printList(Node* pHead) {
-    Node* pCurrent = pHead;
+void printList(NodeList* pHead) {
+    NodeList* pCurrent = pHead;
     while (pCurrent != nullptr) {
         cout << pCurrent->nData << " ";
         pCurrent = pCurrent->pNext;
@@ -44,13 +50,15 @@ void printList(Node* pHead) {
 }
 
 
-// =============== Segunda Parte ===============
+// ================================================================================= //
+// ------------------------------ Primeira Parte -----------------------------------
 // Função para trocar dois nós de lugar
 // Funções de ordenação de lista duplamente encadeada
 // Funções: bubbleSort, selectionSort, insertionSort, mergeSort
+// ================================================================================= //
 
 // Função swap para lista duplamente encadeada
-void swap(Node** ppHead, Node** ppTail, Node* pNode1, Node* pNode2) {
+void swap(NodeList** ppHead, NodeList** ppTail, NodeList* pNode1, NodeList* pNode2) {
     if (*ppHead == nullptr || *ppTail == nullptr) {
         // Lista vazia, não há nada para trocar
         return;
@@ -64,8 +72,8 @@ void swap(Node** ppHead, Node** ppTail, Node* pNode1, Node* pNode2) {
     // Verifica se os nós são adjacentes (pNode1 -> pNode2)
     if (pNode1->pNext == pNode2) {
         // Troca os nós adjacentes
-        Node* pPrev1 = pNode1->pPrev;
-        Node* pNext2 = pNode2->pNext;
+        NodeList* pPrev1 = pNode1->pPrev;
+        NodeList* pNext2 = pNode2->pNext;
 
         // Nó anterior ao pNode1 apontará para o pNode2
         if (pPrev1 != nullptr) {
@@ -89,8 +97,8 @@ void swap(Node** ppHead, Node** ppTail, Node* pNode1, Node* pNode2) {
     // Verifica se os nós são adjacentes (pNode2 -> pNode1)
     } else if (pNode2->pNext == pNode1) {
         // Troca os nós adjacentes
-        Node* pPrev2 = pNode2->pPrev;
-        Node* pNext1 = pNode1->pNext;
+        NodeList* pPrev2 = pNode2->pPrev;
+        NodeList* pNext1 = pNode1->pNext;
 
         // Nó anterior ao pNode2 apontará para o pNode1
         if (pPrev2 != nullptr) {
@@ -113,10 +121,10 @@ void swap(Node** ppHead, Node** ppTail, Node* pNode1, Node* pNode2) {
 
     // Os nós não são adjacentes
     } else {
-        Node* pPrev1 = pNode1->pPrev;
-        Node* pNext1 = pNode1->pNext;
-        Node* pPrev2 = pNode2->pPrev;
-        Node* pNext2 = pNode2->pNext;
+        NodeList* pPrev1 = pNode1->pPrev;
+        NodeList* pNext1 = pNode1->pNext;
+        NodeList* pPrev2 = pNode2->pPrev;
+        NodeList* pNext2 = pNode2->pNext;
 
         // Etapa 1: Nó anterior ao pNode1 apontará para o pNode2 (Next)
         if (pPrev1 != nullptr) {
@@ -153,14 +161,19 @@ void swap(Node** ppHead, Node** ppTail, Node* pNode1, Node* pNode2) {
     }
 }
 
-void bubbleSort(Node** ppHead, Node** ppTail) {
+// ================================================================================= //
+//13. Uma das opções deve converter a árvore em uma lista e ordenar com bublesort
+// ================================================================================= //
+
+
+void bubbleSort(NodeList** ppHead, NodeList** ppTail) {
     // Lista vazia ou com apenas um elemento, não precisa ordenar
     if (*ppHead == nullptr || (*ppHead)->pNext == nullptr) {
         return; 
     }
     
     bool bSwapped = true;
-    Node* pCurrent;
+    NodeList* pCurrent;
     while (bSwapped) {
         bSwapped = false;
         pCurrent = *ppHead;
@@ -178,19 +191,21 @@ void bubbleSort(Node** ppHead, Node** ppTail) {
     }
 }
 
+// =================================================================================== //
 //14. Uma das opções deve converter a árvore em uma lista e ordenar com Selection Sort
+// =================================================================================== //
 
-void selectionSort(Node** ppHead, Node** ppTail) {
+void selectionSort(NodeList** ppHead, NodeList** ppTail) {
     // Lista vazia ou com apenas um elemento, não precisa ordenar
     if (*ppHead == nullptr || (*ppHead)->pNext == nullptr) {
         return;
     }
 
-    Node* pCurrent = *ppHead;
+    NodeList* pCurrent = *ppHead;
 
     while (pCurrent->pNext != nullptr) {
-        Node* pMinNode = pCurrent;
-        Node* pTemp = pCurrent->pNext;
+        NodeList* pMinNode = pCurrent;
+        NodeList* pTemp = pCurrent->pNext;
 
         // Encontra o nó com o menor valor
         while (pTemp != nullptr) {
@@ -216,22 +231,25 @@ void selectionSort(Node** ppHead, Node** ppTail) {
     }
 }
 
-//14. Uma das opções deve converter a árvore em uma lista e ordenar com insertion Sort
-void insertionSort(Node** ppHead, Node** ppTail) {
+// ================================================================================= //
+//15. Uma das opções deve converter a árvore em uma lista e ordenar com insertion Sort
+// ================================================================================= //
+
+void insertionSort(NodeList** ppHead, NodeList** ppTail) {
     if (*ppHead == nullptr || *ppTail == nullptr) {
         // Lista vazia ou contém apenas um elemento, já está ordenada
         return;
     }
 
-    Node* pSorted = nullptr; // Lista de nós ordenados
+    NodeList* pSorted = nullptr; // Lista de nós ordenados
 
-    Node* pCurrent = *ppHead;
+    NodeList* pCurrent = *ppHead;
     while (pCurrent != nullptr) {
-        Node* pNextNode = pCurrent->pNext;
+        NodeList* pNextNode = pCurrent->pNext;
 
         // Encontra a posição correta para inserir o nó atual na lista ordenada
         // Pega o elemento pCurrent e busca onde deve ser insere na sublista ordenada
-        Node* pSortedCurrent = pSorted;
+        NodeList* pSortedCurrent = pSorted;
         while (pSortedCurrent != nullptr && pSortedCurrent->nData < pCurrent->nData) {
             pSortedCurrent = pSortedCurrent->pNext;
         }
@@ -244,7 +262,7 @@ void insertionSort(Node** ppHead, Node** ppTail) {
                 pSorted->pPrev = nullptr;
                 pSorted->pNext = nullptr;
             } else {
-                Node* pLastNode = pSorted;
+                NodeList* pLastNode = pSorted;
                 while (pLastNode->pNext != nullptr) {
                     pLastNode = pLastNode->pNext;
                 }
@@ -254,7 +272,7 @@ void insertionSort(Node** ppHead, Node** ppTail) {
             }
         } else {
             // O nó atual deve ser inserido antes de pSortedCurrent
-            Node* pPrevNode = pSortedCurrent->pPrev;
+            NodeList* pPrevNode = pSortedCurrent->pPrev;
 
             if (pPrevNode != nullptr) {
                 pPrevNode->pNext = pCurrent;
@@ -272,17 +290,20 @@ void insertionSort(Node** ppHead, Node** ppTail) {
 
     // Atualiza a cabeça e a cauda da lista original
     *ppHead = pSorted;
-    Node* pLastNode = pSorted;
+    NodeList* pLastNode = pSorted;
     while (pLastNode->pNext != nullptr) {
         pLastNode = pLastNode->pNext;
     }
     *ppTail = pLastNode;
 }
 
-//15. Uma das opções deve converter a árvore em uma lista e ordenar com Shell Sort
-void shellSort(Node** ppHead, Node** ppTail) {
+// ================================================================================= //
+//16. Uma das opções deve converter a árvore em uma lista e ordenar com Shell Sort
+// ================================================================================= //
+
+void shellSort(NodeList** ppHead, NodeList** ppTail) {
     int nSize = 0; // Tamanho da lista
-    Node* pCurrent = *ppHead;
+    NodeList* pCurrent = *ppHead;
 
     // Conta o tamanho da lista
     while (pCurrent != nullptr) {
@@ -296,20 +317,20 @@ void shellSort(Node** ppHead, Node** ppTail) {
     while (nInterval > 0) {
         // Percorre a lista com o intervalo atual
         for (int i = nInterval; i < nSize; i++) {
-            Node* pCurrent = *ppHead;
+            NodeList* pCurrent = *ppHead;
 
             // Vai até o nó na posição i
             for (int j = 0; j < i; j++) {
                 pCurrent = pCurrent->pNext;
             }
-            Node* pPrev = pCurrent->pPrev;
+            NodeList* pPrev = pCurrent->pPrev;
 
             // Realiza a comparação e troca dos nós conforme necessário
             while (pPrev != nullptr && pCurrent != nullptr && pPrev->nData > pCurrent->nData) {
                 swap(ppHead, ppTail, pPrev, pCurrent);
 
                 // Atualiza os ponteiros pPrev e pCurrent
-                Node* pTemp = pPrev;
+                NodeList* pTemp = pPrev;
                 pPrev = pCurrent;
                 pCurrent = pTemp;
                 pCurrent = pCurrent->pPrev;
@@ -331,9 +352,10 @@ void shellSort(Node** ppHead, Node** ppTail) {
 // main apenas para testar as funções
 // Não é necessário implementar nada aqui
 
+
 int main() {
-    Node* pHead = nullptr;
-    Node* pTail = nullptr;
+    NodeList* pHead = nullptr;
+    NodeList* pTail = nullptr;
 
     insertBack(&pHead, &pTail, 8);
     insertBack(&pHead, &pTail, 3);
@@ -346,12 +368,13 @@ int main() {
 
     printList(pHead);
 
-    //swap(&pHead, &pTail, pHead->pNext->pNext, pTail->pPrev->pPrev);
+    // swap(&pHead, &pTail, pHead->pNext->pNext, pTail->pPrev->pPrev);
 
-    //bubbleSort(&pHead, &pTail);
-    //selectionSort(&pHead, &pTail);
-    //insertionSort(&pHead, &pTail);
+    // bubbleSort(&pHead, &pTail);
+    // selectionSort(&pHead, &pTail);
+    // insertionSort(&pHead, &pTail);
     shellSort(&pHead, &pTail);
 
     printList(pHead);
+    
 }
