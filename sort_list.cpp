@@ -217,8 +217,6 @@ void selectionSort(Node** ppHead, Node** ppTail) {
 }
 
 //14. Uma das opções deve converter a árvore em uma lista e ordenar com insertion Sort
-
-
 void insertionSort(Node** ppHead, Node** ppTail) {
     if (*ppHead == nullptr || *ppTail == nullptr) {
         // Lista vazia ou contém apenas um elemento, já está ordenada
@@ -281,6 +279,53 @@ void insertionSort(Node** ppHead, Node** ppTail) {
     *ppTail = pLastNode;
 }
 
+//15. Uma das opções deve converter a árvore em uma lista e ordenar com Shell Sort
+void shellSort(Node** ppHead, Node** ppTail) {
+    int nSize = 0; // Tamanho da lista
+    Node* pCurrent = *ppHead;
+
+    // Conta o tamanho da lista
+    while (pCurrent != nullptr) {
+        pCurrent = pCurrent->pNext;
+        nSize++;
+    }
+
+    // Calcula o intervalo inicial que é dado por n/2
+    int nInterval = nSize / 2;
+
+    while (nInterval > 0) {
+        // Percorre a lista com o intervalo atual
+        for (int i = nInterval; i < nSize; i++) {
+            Node* pCurrent = *ppHead;
+
+            // Vai até o nó na posição i
+            for (int j = 0; j < i; j++) {
+                pCurrent = pCurrent->pNext;
+            }
+            Node* pPrev = pCurrent->pPrev;
+
+            // Realiza a comparação e troca dos nós conforme necessário
+            while (pPrev != nullptr && pCurrent != nullptr && pPrev->nData > pCurrent->nData) {
+                swap(ppHead, ppTail, pPrev, pCurrent);
+
+                // Atualiza os ponteiros pPrev e pCurrent
+                Node* pTemp = pPrev;
+                pPrev = pCurrent;
+                pCurrent = pTemp;
+                pCurrent = pCurrent->pPrev;
+
+                // Retrocede para trás pelo intervalo
+                if (pPrev != nullptr)
+                    pPrev = pPrev->pPrev;
+            }
+        }
+
+        // Atualiza o intervalo para a próxima iteração
+        nInterval /= 2;
+    }
+}
+
+
 
 // =============== Terceira Parte ===============
 // main apenas para testar as funções
@@ -305,7 +350,8 @@ int main() {
 
     //bubbleSort(&pHead, &pTail);
     //selectionSort(&pHead, &pTail);
-    insertionSort(&pHead, &pTail);
+    //insertionSort(&pHead, &pTail);
+    shellSort(&pHead, &pTail);
 
     printList(pHead);
 }
