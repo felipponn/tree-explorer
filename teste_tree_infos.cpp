@@ -4,13 +4,6 @@
 
 using namespace std;
 
-struct Node
-{
-    int iPayload;
-    struct Node* ptrLeft;
-    struct Node* ptrRight;
-};
-
 int main()
 {
     struct Node* root = new Node;
