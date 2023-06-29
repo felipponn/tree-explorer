@@ -181,8 +181,8 @@ void bubbleSort(Node** ppHead, Node** ppTail) {
 //14. Uma das opções deve converter a árvore em uma lista e ordenar com Selection Sort
 
 void selectionSort(Node** ppHead, Node** ppTail) {
+    // Lista vazia ou com apenas um elemento, não precisa ordenar
     if (*ppHead == nullptr || (*ppHead)->pNext == nullptr) {
-        // Lista vazia ou com apenas um elemento, não precisa ordenar
         return;
     }
 
@@ -216,6 +216,71 @@ void selectionSort(Node** ppHead, Node** ppTail) {
     }
 }
 
+//14. Uma das opções deve converter a árvore em uma lista e ordenar com insertion Sort
+
+
+void insertionSort(Node** ppHead, Node** ppTail) {
+    if (*ppHead == nullptr || *ppTail == nullptr) {
+        // Lista vazia ou contém apenas um elemento, já está ordenada
+        return;
+    }
+
+    Node* pSorted = nullptr; // Lista de nós ordenados
+
+    Node* pCurrent = *ppHead;
+    while (pCurrent != nullptr) {
+        Node* pNextNode = pCurrent->pNext;
+
+        // Encontra a posição correta para inserir o nó atual na lista ordenada
+        // Pega o elemento pCurrent e busca onde deve ser insere na sublista ordenada
+        Node* pSortedCurrent = pSorted;
+        while (pSortedCurrent != nullptr && pSortedCurrent->nData < pCurrent->nData) {
+            pSortedCurrent = pSortedCurrent->pNext;
+        }
+
+        if (pSortedCurrent == nullptr) {
+            // O nó atual deve ser inserido no final da lista ordenada
+            if (pSorted == nullptr) {
+                // A lista ordenada está vazia
+                pSorted = pCurrent;
+                pSorted->pPrev = nullptr;
+                pSorted->pNext = nullptr;
+            } else {
+                Node* pLastNode = pSorted;
+                while (pLastNode->pNext != nullptr) {
+                    pLastNode = pLastNode->pNext;
+                }
+                pLastNode->pNext = pCurrent;
+                pCurrent->pPrev = pLastNode;
+                pCurrent->pNext = nullptr;
+            }
+        } else {
+            // O nó atual deve ser inserido antes de pSortedCurrent
+            Node* pPrevNode = pSortedCurrent->pPrev;
+
+            if (pPrevNode != nullptr) {
+                pPrevNode->pNext = pCurrent;
+            } else {
+                pSorted = pCurrent;
+            }
+
+            pSortedCurrent->pPrev = pCurrent;
+            pCurrent->pPrev = pPrevNode;
+            pCurrent->pNext = pSortedCurrent;
+        }
+
+        pCurrent = pNextNode;
+    }
+
+    // Atualiza a cabeça e a cauda da lista original
+    *ppHead = pSorted;
+    Node* pLastNode = pSorted;
+    while (pLastNode->pNext != nullptr) {
+        pLastNode = pLastNode->pNext;
+    }
+    *ppTail = pLastNode;
+}
+
 
 // =============== Terceira Parte ===============
 // main apenas para testar as funções
@@ -239,7 +304,8 @@ int main() {
     //swap(&pHead, &pTail, pHead->pNext->pNext, pTail->pPrev->pPrev);
 
     //bubbleSort(&pHead, &pTail);
-    selectionSort(&pHead, &pTail);
+    //selectionSort(&pHead, &pTail);
+    insertionSort(&pHead, &pTail);
 
     printList(pHead);
 }
