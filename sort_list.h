@@ -1,6 +1,5 @@
 #include <iostream>
 #include <fstream>
-#include "create_tree.h"
 
 using namespace std;
 
@@ -52,24 +51,22 @@ void printList(NodeList* pHead) {
 
 // ================================================================================= //
 // ------------------------------- Segunda Parte -----------------------------------
-// Função para trocar dois nós de lugar
-// Funções de ordenação de lista duplamente encadeada
-// Funções: bubbleSort, selectionSort, insertionSort, mergeSort
+// Função para converter uma árvore binária em uma lista duplamente encadeada
 // ================================================================================= //
 
 
 // Percorre a árvore com pré-ordem e insere os nós na lista
-void treeToDoublyLinkedList(struct Node* root, NodeList** ppHead, NodeList** ppTail) {
-    if (root == nullptr) return;
+void treeToDoublyLinkedList(struct Node* pRoot, NodeList** ppHead, NodeList** ppTail) {
+    if (pRoot == nullptr) return;
     
     // Inserir o nó atual no final da lista
-    insertBack(ppHead, ppTail, root->iPayload);
+    insertBack(ppHead, ppTail, pRoot->iPayload);
 
     // Converter a subárvore esquerda em uma lista duplamente encadeada
-    treeToDoublyLinkedList(root->ptrLeft, ppHead, ppTail);
+    treeToDoublyLinkedList(pRoot->ptrLeft, ppHead, ppTail);
     
     // Converter a subárvore direita em uma lista duplamente encadeada
-    treeToDoublyLinkedList(root->ptrRight, ppHead, ppTail);
+    treeToDoublyLinkedList(pRoot->ptrRight, ppHead, ppTail);
 }
 
 // ================================================================================= //
@@ -80,7 +77,7 @@ void treeToDoublyLinkedList(struct Node* root, NodeList** ppHead, NodeList** ppT
 // ================================================================================= //
 
 // Função swap para lista duplamente encadeada
-void swap(NodeList** ppHead, NodeList** ppTail, NodeList* pNode1, NodeList* pNode2) {
+void swapNode(NodeList** ppHead, NodeList** ppTail, NodeList* pNode1, NodeList* pNode2) {
     if (*ppHead == nullptr || *ppTail == nullptr) {
         // Lista vazia, não há nada para trocar
         return;
@@ -204,7 +201,7 @@ void bubbleSort(NodeList** ppHead, NodeList** ppTail) {
             if (pCurrent->nData > pCurrent->pNext->nData) {
                 // Troca os nós
                 // Ao trocar os nós, não é necessário atualizar o ponteiro
-                swap(ppHead, ppTail, pCurrent, pCurrent->pNext);
+                swapNode(ppHead, ppTail, pCurrent, pCurrent->pNext);
                 bSwapped = true;
             } else {
                 pCurrent = pCurrent->pNext;
@@ -241,7 +238,7 @@ void selectionSort(NodeList** ppHead, NodeList** ppTail) {
         // Verifica se o nó mínimo é diferente do nó atual
         if (pMinNode != pCurrent) {
             // Troca os nós
-            swap(ppHead, ppTail, pCurrent, pMinNode);
+            swapNode(ppHead, ppTail, pCurrent, pMinNode);
 
             // Atualiza o ponteiro tail, se necessário
             if (pMinNode == *ppTail) {
@@ -349,7 +346,7 @@ void shellSort(NodeList** ppHead, NodeList** ppTail) {
 
             // Realiza a comparação e troca dos nós conforme necessário
             while (pPrev != nullptr && pCurrent != nullptr && pPrev->nData > pCurrent->nData) {
-                swap(ppHead, ppTail, pPrev, pCurrent);
+                swapNode(ppHead, ppTail, pPrev, pCurrent);
 
                 // Atualiza os ponteiros pPrev e pCurrent
                 NodeList* pTemp = pPrev;
@@ -366,52 +363,4 @@ void shellSort(NodeList** ppHead, NodeList** ppTail) {
         // Atualiza o intervalo para a próxima iteração
         nInterval /= 2;
     }
-}
-
-int main() {
-    // NodeList* pHead = nullptr;
-    // NodeList* pTail = nullptr;
-
-    // insertBack(&pHead, &pTail, 8);
-    // insertBack(&pHead, &pTail, 3);
-    // insertBack(&pHead, &pTail, 2);
-    // insertBack(&pHead, &pTail, 5);
-    // insertBack(&pHead, &pTail, 7);
-    // insertBack(&pHead, &pTail, 4);
-    // insertBack(&pHead, &pTail, 1);
-    // insertBack(&pHead, &pTail, 6);
-
-    // printList(pHead);
-
-    // swap(&pHead, &pTail, pHead->pNext->pNext, pTail->pPrev->pPrev);
-
-    // bubbleSort(&pHead, &pTail);
-    // selectionSort(&pHead, &pTail);
-    // insertionSort(&pHead, &pTail);
-    // shellSort(&pHead, &pTail);
-
-    // printList(pHead);
-
-    // Código para criar a árvore
-    struct Node* pRoot = nullptr;
-    pRoot = insertNode(pRoot, 4);
-    pRoot = insertNode(pRoot, 2);
-    pRoot = insertNode(pRoot, 5);
-    pRoot = insertNode(pRoot, 1);
-    pRoot = insertNode(pRoot, 3);
-
-    traversePreOrder(pRoot);
-    cout << endl;
-
-    NodeList* pHead = nullptr;
-    NodeList* pTail = nullptr;
-    treeToDoublyLinkedList(pRoot, &pHead, &pTail);
-
-    printList(pHead);
-
-    bubbleSort(&pHead, &pTail);
-
-    printList(pHead);
-
-
 }
