@@ -24,104 +24,104 @@ int main() {
     cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
 
     // lista com números repetidos, negativos e zero
-    struct Node* pRoot = nullptr;
-    pRoot = insertNode(pRoot, 4);
-    pRoot = insertNode(pRoot, 7);
-    pRoot = insertNode(pRoot, -1);
-    pRoot = insertNode(pRoot, 2);
-    pRoot = insertNode(pRoot, 9);
-    pRoot = insertNode(pRoot, 5);
-    pRoot = insertNode(pRoot, 6);
-    pRoot = insertNode(pRoot, 0);
-    pRoot = insertNode(pRoot, 1);
-    pRoot = insertNode(pRoot, -2);
-    pRoot = insertNode(pRoot, 1);
-    pRoot = insertNode(pRoot, 8);
-    pRoot = insertNode(pRoot, 3);
+    struct Node* ptrRoot = nullptr;
+    ptrRoot = insertNode(ptrRoot, 4);
+    ptrRoot = insertNode(ptrRoot, 7);
+    ptrRoot = insertNode(ptrRoot, -1);
+    ptrRoot = insertNode(ptrRoot, 2);
+    ptrRoot = insertNode(ptrRoot, 9);
+    ptrRoot = insertNode(ptrRoot, 5);
+    ptrRoot = insertNode(ptrRoot, 6);
+    ptrRoot = insertNode(ptrRoot, 0);
+    ptrRoot = insertNode(ptrRoot, 1);
+    ptrRoot = insertNode(ptrRoot, -2);
+    ptrRoot = insertNode(ptrRoot, 1);
+    ptrRoot = insertNode(ptrRoot, 8);
+    ptrRoot = insertNode(ptrRoot, 3);
 
     cout << "Arvore: ";
-    traversePreOrder(pRoot);
+    traversePreOrder(ptrRoot);
     cout << endl;
 
-    struct NodeList* pHead = nullptr;
-    struct NodeList* pTail = nullptr;
-    treeToDoublyLinkedList(pRoot, &pHead, &pTail);
+    struct NodeList* ptrHead = nullptr;
+    struct NodeList* ptrTail = nullptr;
+    treeToDoublyLinkedList(ptrRoot, &ptrHead, &ptrTail);
 
     cout << "Lista: ";
-    printList(pHead);
+    printList(ptrHead);
 
     cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
     cout << "Testando funcao swap: " << endl;
     cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
 
-    NodeList* pHead2 = nullptr;
-    NodeList* pTail2 = nullptr;
-    treeToDoublyLinkedList(pRoot, &pHead2, &pTail2);
-    printList(pHead2);
-    swapNode(&pHead2, &pTail2, pTail2, pTail2->pPrev);
-    printList(pHead2);
+    NodeList* ptrHead2 = nullptr;
+    NodeList* ptrTail2 = nullptr;
+    treeToDoublyLinkedList(ptrRoot, &ptrHead2, &ptrTail2);
+    printList(ptrHead2);
+    swapNode(&ptrHead2, &ptrTail2, ptrTail2, ptrTail2->ptrPrev);
+    printList(ptrHead2);
 
-    swapNode(&pHead2, &pTail2, pHead2, pHead2->pNext);
-    printList(pHead2);
+    swapNode(&ptrHead2, &ptrTail2, ptrHead2, ptrHead2->ptrNext);
+    printList(ptrHead2);
 
-    swapNode(&pHead2, &pTail2, pHead2->pNext, pTail2->pPrev);
-    printList(pHead2);
+    swapNode(&ptrHead2, &ptrTail2, ptrHead2->ptrNext, ptrTail2->ptrPrev);
+    printList(ptrHead2);
 
     cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
     cout << "Testando funcao bubbleSort: " << endl;
     cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
 
-    NodeList* pHead3 = nullptr;
-    NodeList* pTail3 = nullptr;
+    NodeList* ptrHead3 = nullptr;
+    NodeList* ptrTail3 = nullptr;
 
-    treeToDoublyLinkedList(pRoot, &pHead3, &pTail3);
+    treeToDoublyLinkedList(ptrRoot, &ptrHead3, &ptrTail3);
     cout << "Lista: ";
-    printList(pHead3);
-    bubbleSort(&pHead3, &pTail3);
+    printList(ptrHead3);
+    bubbleSort(&ptrHead3, &ptrTail3);
     cout << "Lista ordenada: ";
-    printList(pHead3);
+    printList(ptrHead3);
 
     cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
     cout << "Testando funcao selectionSort: " << endl;
     cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
 
-    NodeList* pHead4 = nullptr;
-    NodeList* pTail4 = nullptr;
+    NodeList* ptrHead4 = nullptr;
+    NodeList* ptrTail4 = nullptr;
 
-    treeToDoublyLinkedList(pRoot, &pHead4, &pTail4);
+    treeToDoublyLinkedList(ptrRoot, &ptrHead4, &ptrTail4);
     cout << "Lista: ";
-    printList(pHead4);
-    selectionSort(&pHead4, &pTail4);
+    printList(ptrHead4);
+    selectionSort(&ptrHead4, &ptrTail4);
     cout << "Lista ordenada: ";
-    printList(pHead4);
+    printList(ptrHead4);
     
     cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
     cout << "Testando funcao insertionSort: " << endl;
     cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
     
-    NodeList* pHead5 = nullptr;
-    NodeList* pTail5 = nullptr;
+    NodeList* ptrHead5 = nullptr;
+    NodeList* ptrTail5 = nullptr;
 
-    treeToDoublyLinkedList(pRoot, &pHead5, &pTail5);
+    treeToDoublyLinkedList(ptrRoot, &ptrHead5, &ptrTail5);
     cout << "Lista: ";
-    printList(pHead5);
-    insertionSort(&pHead5, &pTail5);
+    printList(ptrHead5);
+    insertionSort(&ptrHead5, &ptrTail5);
     cout << "Lista ordenada: ";
-    printList(pHead5);
+    printList(ptrHead5);
 
     cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
     cout << "Testando funcao shellSort: " << endl;
     cout << "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
 
-    NodeList* pHead6 = nullptr;
-    NodeList* pTail6 = nullptr;
+    NodeList* ptrHead6 = nullptr;
+    NodeList* ptrTail6 = nullptr;
 
-    treeToDoublyLinkedList(pRoot, &pHead6, &pTail6);
+    treeToDoublyLinkedList(ptrRoot, &ptrHead6, &ptrTail6);
     cout << "Lista: ";
-    printList(pHead6);
-    shellSort(&pHead6, &pTail6);
+    printList(ptrHead6);
+    shellSort(&ptrHead6, &ptrTail6);
     cout << "Lista ordenada: ";
-    printList(pHead6);
+    printList(ptrHead6);
 
     return 0;
 }

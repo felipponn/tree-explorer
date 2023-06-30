@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include "create_tree.h"
 
 using namespace std;
 
@@ -10,47 +11,47 @@ using namespace std;
 // ================================================================================= //
 
 // Estrutura para um nó da árvore binária
-struct Node
-{
-    int iPayload;
-    struct Node* ptrLeft;
-    struct Node* ptrRight;
-};
+// struct Node
+// {
+//     int iPayload;
+//     struct Node* ptrLeft;
+//     struct Node* ptrRight;
+// };
 
 // Estrutura para um nó da lista duplamente encadeada
 struct NodeList {
-    int nData;
-    NodeList* pPrev;
-    NodeList* pNext;
+    int iData;
+    NodeList* ptrPrev;
+    NodeList* ptrNext;
 };
 
 // Função para criar um novo nó
-NodeList* createNode(int nData) {
-    NodeList* pNewNode = new NodeList;
-    pNewNode->nData = nData;
-    pNewNode->pPrev = nullptr;
-    pNewNode->pNext = nullptr;
-    return pNewNode;
+NodeList* createNode(int iData) {
+    NodeList* ptrNewNode = new NodeList;
+    ptrNewNode->iData = iData;
+    ptrNewNode->ptrPrev = nullptr;
+    ptrNewNode->ptrNext = nullptr;
+    return ptrNewNode;
 }
 
 // Função para inserir um novo nó no final da lista
-void insertBack(NodeList** ppHead, NodeList** ppTail, int nData) {
-    NodeList* pNewNode = createNode(nData);
-    if (*ppHead == nullptr) {
-        *ppHead = pNewNode;
+void insertBack(NodeList** ptrHead, NodeList** ptrTail, int iData) {
+    NodeList* ptrNewNode = createNode(iData);
+    if (*ptrHead == nullptr) {
+        *ptrHead = ptrNewNode;
     } else {
-        (*ppTail)->pNext = pNewNode;
-        pNewNode->pPrev = *ppTail;
+        (*ptrTail)->ptrNext = ptrNewNode;
+        ptrNewNode->ptrPrev = *ptrTail;
     }
-    *ppTail = pNewNode;
+    *ptrTail = ptrNewNode;
 }
 
 // Função para imprimir a lista
-void printList(NodeList* pHead) {
-    NodeList* pCurrent = pHead;
-    while (pCurrent != nullptr) {
-        cout << pCurrent->nData << " ";
-        pCurrent = pCurrent->pNext;
+void printList(NodeList* ptrHead) {
+    NodeList* ptrCurrent = ptrHead;
+    while (ptrCurrent != nullptr) {
+        cout << ptrCurrent->iData << " ";
+        ptrCurrent = ptrCurrent->ptrNext;
     }
     cout << endl << endl;
 }
@@ -63,17 +64,17 @@ void printList(NodeList* pHead) {
 
 
 // Percorre a árvore com pré-ordem e insere os nós na lista
-void treeToDoublyLinkedList(struct Node* pRoot, NodeList** ppHead, NodeList** ppTail) {
-    if (pRoot == nullptr) return;
+void treeToDoublyLinkedList(struct Node* ptrRoot, NodeList** ptrHead, NodeList** ptrTail) {
+    if (ptrRoot == nullptr) return;
     
     // Inserir o nó atual no final da lista
-    insertBack(ppHead, ppTail, pRoot->iPayload);
+    insertBack(ptrHead, ptrTail, ptrRoot->iPayload);
 
     // Converter a subárvore esquerda em uma lista duplamente encadeada
-    treeToDoublyLinkedList(pRoot->ptrLeft, ppHead, ppTail);
+    treeToDoublyLinkedList(ptrRoot->ptrLeft, ptrHead, ptrTail);
     
     // Converter a subárvore direita em uma lista duplamente encadeada
-    treeToDoublyLinkedList(pRoot->ptrRight, ppHead, ppTail);
+    treeToDoublyLinkedList(ptrRoot->ptrRight, ptrHead, ptrTail);
 }
 
 // ================================================================================= //
@@ -84,106 +85,106 @@ void treeToDoublyLinkedList(struct Node* pRoot, NodeList** ppHead, NodeList** pp
 // ================================================================================= //
 
 // Função swap para lista duplamente encadeada
-void swapNode(NodeList** ppHead, NodeList** ppTail, NodeList* pNode1, NodeList* pNode2) {
-    if (*ppHead == nullptr || *ppTail == nullptr) {
-        // Lista vazia, não há nada para trocar
+void swapNode(NodeList** ptrptrHead, NodeList** ptrptrTail, NodeList* ptrNode1, NodeList* ptrNode2) {
+    // Lista vazia, não há nada para trocar
+    if (*ptrptrHead == nullptr || *ptrptrTail == nullptr) {
         return;
     }
     
     // Verifica se os nós são os mesmos
-    if (pNode1 == pNode2) {
+    if (ptrNode1 == ptrNode2) {
         return;
     }
 
-    // Verifica se os nós são adjacentes (pNode1 -> pNode2)
-    if (pNode1->pNext == pNode2) {
+    // Verifica se os nós são adjacentes (ptrNode1 -> ptrNode2)
+    if (ptrNode1->ptrNext == ptrNode2) {
         // Troca os nós adjacentes
-        NodeList* pPrev1 = pNode1->pPrev;
-        NodeList* pNext2 = pNode2->pNext;
+        NodeList* ptrPrev1 = ptrNode1->ptrPrev;
+        NodeList* ptrNext2 = ptrNode2->ptrNext;
 
-        // Nó anterior ao pNode1 apontará para o pNode2
-        if (pPrev1 != nullptr) {
-            pPrev1->pNext = pNode2;
+        // Nó anterior ao ptrNode1 apontará para o ptrNode2
+        if (ptrPrev1 != nullptr) {
+            ptrPrev1->ptrNext = ptrNode2;
         } else {
-            *ppHead = pNode2;
+            *ptrptrHead = ptrNode2;
         }
 
-        // Nó posterior ao pNode2 apontará para o pNode1
-        if (pNext2 != nullptr) {
-            pNext2->pPrev = pNode1;
+        // Nó posterior ao ptrNode2 apontará para o ptrNode1
+        if (ptrNext2 != nullptr) {
+            ptrNext2->ptrPrev = ptrNode1;
         } else {
-            *ppTail = pNode1;
+            *ptrptrTail = ptrNode1;
         }
 
-        pNode2->pPrev = pPrev1;
-        pNode2->pNext = pNode1;
-        pNode1->pPrev = pNode2;
-        pNode1->pNext = pNext2;
+        ptrNode2->ptrPrev = ptrPrev1;
+        ptrNode2->ptrNext = ptrNode1;
+        ptrNode1->ptrPrev = ptrNode2;
+        ptrNode1->ptrNext = ptrNext2;
 
-    // Verifica se os nós são adjacentes (pNode2 -> pNode1)
-    } else if (pNode2->pNext == pNode1) {
+    // Verifica se os nós são adjacentes (ptrNode2 -> ptrNode1)
+    } else if (ptrNode2->ptrNext == ptrNode1) {
         // Troca os nós adjacentes
-        NodeList* pPrev2 = pNode2->pPrev;
-        NodeList* pNext1 = pNode1->pNext;
+        NodeList* ptrPrev2 = ptrNode2->ptrPrev;
+        NodeList* ptrNext1 = ptrNode1->ptrNext;
 
-        // Nó anterior ao pNode2 apontará para o pNode1
-        if (pPrev2 != nullptr) {
-            pPrev2->pNext = pNode1;
+        // Nó anterior ao ptrNode2 apontará para o ptrNode1
+        if (ptrPrev2 != nullptr) {
+            ptrPrev2->ptrNext = ptrNode1;
         } else {
-            *ppHead = pNode1;
+            *ptrptrHead = ptrNode1;
         }
         
-        // Nó posterior ao pNode1 apontará para o pNode2
-        if (pNext1 != nullptr) {
-            pNext1->pPrev = pNode2;
+        // Nó posterior ao ptrNode1 apontará para o ptrNode2
+        if (ptrNext1 != nullptr) {
+            ptrNext1->ptrPrev = ptrNode2;
         } else {
-            *ppTail = pNode2;
+            *ptrptrTail = ptrNode2;
         }
 
-        pNode1->pPrev = pPrev2;
-        pNode1->pNext = pNode2;
-        pNode2->pPrev = pNode1;
-        pNode2->pNext = pNext1;
+        ptrNode1->ptrPrev = ptrPrev2;
+        ptrNode1->ptrNext = ptrNode2;
+        ptrNode2->ptrPrev = ptrNode1;
+        ptrNode2->ptrNext = ptrNext1;
 
     // Os nós não são adjacentes
     } else {
-        NodeList* pPrev1 = pNode1->pPrev;
-        NodeList* pNext1 = pNode1->pNext;
-        NodeList* pPrev2 = pNode2->pPrev;
-        NodeList* pNext2 = pNode2->pNext;
+        NodeList* ptrPrev1 = ptrNode1->ptrPrev;
+        NodeList* ptrNext1 = ptrNode1->ptrNext;
+        NodeList* ptrPrev2 = ptrNode2->ptrPrev;
+        NodeList* ptrNext2 = ptrNode2->ptrNext;
 
-        // Etapa 1: Nó anterior ao pNode1 apontará para o pNode2 (Next)
-        if (pPrev1 != nullptr) {
-            pPrev1->pNext = pNode2;
+        // Etapa 1: Nó anterior ao ptrNode1 apontará para o ptrNode2 (Next)
+        if (ptrPrev1 != nullptr) {
+            ptrPrev1->ptrNext = ptrNode2;
         } else {
-            *ppHead = pNode2;
+            *ptrptrHead = ptrNode2;
         }
 
-        // Etapa 2: Nó posterior ao pNode1 apontará para o pNode2 (Prev)
-        if (pNext1 != nullptr) {
-            pNext1->pPrev = pNode2;
+        // Etapa 2: Nó posterior ao ptrNode1 apontará para o ptrNode2 (Prev)
+        if (ptrNext1 != nullptr) {
+            ptrNext1->ptrPrev = ptrNode2;
         } else {
-            *ppTail = pNode2;
+            *ptrptrTail = ptrNode2;
         }
 
-        // Etapa 3: Nó anterior ao pNode2 apontará para o pNode1 (Next)
-        if (pPrev2 != nullptr) {
-            pPrev2->pNext = pNode1;
+        // Etapa 3: Nó anterior ao ptrNode2 apontará para o ptrNode1 (Next)
+        if (ptrPrev2 != nullptr) {
+            ptrPrev2->ptrNext = ptrNode1;
         } else {
-            *ppHead = pNode1;
+            *ptrptrHead = ptrNode1;
         }
 
-        // Etapa 4: Nó posterior ao pNode2 apontará para o pNode1 (Prev)
-        if (pNext2 != nullptr) {
-            pNext2->pPrev = pNode1;
+        // Etapa 4: Nó posterior ao ptrNode2 apontará para o ptrNode1 (Prev)
+        if (ptrNext2 != nullptr) {
+            ptrNext2->ptrPrev = ptrNode1;
         } else {
-            *ppTail = pNode1;
+            *ptrptrTail = ptrNode1;
         }
 
-        pNode1->pPrev = pPrev2;
-        pNode1->pNext = pNext2;
-        pNode2->pPrev = pPrev1;
-        pNode2->pNext = pNext1;
+        ptrNode1->ptrPrev = ptrPrev2;
+        ptrNode1->ptrNext = ptrNext2;
+        ptrNode2->ptrPrev = ptrPrev1;
+        ptrNode2->ptrNext = ptrNext1;
     }
 }
 
@@ -192,68 +193,68 @@ void swapNode(NodeList** ppHead, NodeList** ppTail, NodeList* pNode1, NodeList* 
 // ================================================================================= //
 
 
-void bubbleSort(NodeList** ppHead, NodeList** ppTail) {
+void bubbleSort(NodeList** ptrptrHead, NodeList** ptrptrTail) {
     // Lista vazia ou com apenas um elemento, não precisa ordenar
-    if (*ppHead == nullptr || (*ppHead)->pNext == nullptr) {
-        return; 
+    if (*ptrptrHead == nullptr || (*ptrptrHead)->ptrNext == nullptr) {
+        return;
     }
-    
-    bool bSwapped = true;
-    NodeList* pCurrent;
-    while (bSwapped) {
-        bSwapped = false;
-        pCurrent = *ppHead;
-        // Percorre a lista trocando os nós adjacentes
-        while (pCurrent->pNext != nullptr) {
-            if (pCurrent->nData > pCurrent->pNext->nData) {
-                // Troca os nós
-                // Ao trocar os nós, não é necessário atualizar o ponteiro
-                swapNode(ppHead, ppTail, pCurrent, pCurrent->pNext);
-                bSwapped = true;
-            } else {
-                pCurrent = pCurrent->pNext;
+    bool bSwaptrptred = true;
+        NodeList* ptrCurrent;
+        while (bSwaptrptred) {
+            bSwaptrptred = false;
+            ptrCurrent = *ptrptrHead;
+            // Percorre a lista trocando os nós adjacentes
+            while (ptrCurrent->ptrNext != nullptr) {
+                if (ptrCurrent->iData > ptrCurrent->ptrNext->iData) {
+                    // Troca os nós
+                    // Ao trocar os nós, não é necessário atualizar o ponteiro
+                    swapNode(ptrptrHead, ptrptrTail, ptrCurrent, ptrCurrent->ptrNext);
+                    bSwaptrptred = true;
+                } else {
+                    ptrCurrent = ptrCurrent->ptrNext;
+                }
             }
-        }
-    }
+}
+
 }
 
 // =================================================================================== //
 //14. Uma das opções deve converter a árvore em uma lista e ordenar com Selection Sort
 // =================================================================================== //
 
-void selectionSort(NodeList** ppHead, NodeList** ppTail) {
+void selectionSort(NodeList** ptrptrHead, NodeList** ptrptrTail) {
     // Lista vazia ou com apenas um elemento, não precisa ordenar
-    if (*ppHead == nullptr || (*ppHead)->pNext == nullptr) {
+    if (*ptrptrHead == nullptr || (*ptrptrHead)->ptrNext == nullptr) {
         return;
     }
 
-    NodeList* pCurrent = *ppHead;
+    NodeList* ptrCurrent = *ptrptrHead;
 
-    while (pCurrent->pNext != nullptr) {
-        NodeList* pMinNode = pCurrent;
-        NodeList* pTemp = pCurrent->pNext;
+    while (ptrCurrent->ptrNext != nullptr) {
+        NodeList* pMinNode = ptrCurrent;
+        NodeList* pTemp = ptrCurrent->ptrNext;
 
         // Encontra o nó com o menor valor
         while (pTemp != nullptr) {
-            if (pTemp->nData < pMinNode->nData) {
+            if (pTemp->iData < pMinNode->iData) {
                 pMinNode = pTemp;
             }
 
-            pTemp = pTemp->pNext;
+            pTemp = pTemp->ptrNext;
         }
 
         // Verifica se o nó mínimo é diferente do nó atual
-        if (pMinNode != pCurrent) {
+        if (pMinNode != ptrCurrent) {
             // Troca os nós
-            swapNode(ppHead, ppTail, pCurrent, pMinNode);
+            swapNode(ptrptrHead, ptrptrTail, ptrCurrent, pMinNode);
 
             // Atualiza o ponteiro tail, se necessário
-            if (pMinNode == *ppTail) {
-                *ppTail = pCurrent;
+            if (pMinNode == *ptrptrTail) {
+                *ptrptrTail = ptrCurrent;
             }
         }
 
-        pCurrent = pMinNode->pNext;
+        ptrCurrent = pMinNode->ptrNext;
     }
 }
 
@@ -261,79 +262,79 @@ void selectionSort(NodeList** ppHead, NodeList** ppTail) {
 //15. Uma das opções deve converter a árvore em uma lista e ordenar com insertion Sort
 // ================================================================================= //
 
-void insertionSort(NodeList** ppHead, NodeList** ppTail) {
-    if (*ppHead == nullptr || *ppTail == nullptr) {
+void insertionSort(NodeList** ptrptrHead, NodeList** ptrptrTail) {
+    if (*ptrptrHead == nullptr || *ptrptrTail == nullptr) {
         // Lista vazia ou contém apenas um elemento, já está ordenada
         return;
     }
 
-    NodeList* pSorted = nullptr; // Lista de nós ordenados
+    NodeList* ptrSorted = nullptr; // Lista de nós ordenados
 
-    NodeList* pCurrent = *ppHead;
-    while (pCurrent != nullptr) {
-        NodeList* pNextNode = pCurrent->pNext;
+    NodeList* ptrCurrent = *ptrptrHead;
+    while (ptrCurrent != nullptr) {
+        NodeList* ptrNextNode = ptrCurrent->ptrNext;
 
         // Encontra a posição correta para inserir o nó atual na lista ordenada
-        // Pega o elemento pCurrent e busca onde deve ser insere na sublista ordenada
-        NodeList* pSortedCurrent = pSorted;
-        while (pSortedCurrent != nullptr && pSortedCurrent->nData < pCurrent->nData) {
-            pSortedCurrent = pSortedCurrent->pNext;
+        // Pega o elemento ptrCurrent e busca onde deve ser insere na sublista ordenada
+        NodeList* ptrSortedCurrent = ptrSorted;
+        while (ptrSortedCurrent != nullptr && ptrSortedCurrent->iData < ptrCurrent->iData) {
+            ptrSortedCurrent = ptrSortedCurrent->ptrNext;
         }
 
-        if (pSortedCurrent == nullptr) {
+        if (ptrSortedCurrent == nullptr) {
             // O nó atual deve ser inserido no final da lista ordenada
-            if (pSorted == nullptr) {
+            if (ptrSorted == nullptr) {
                 // A lista ordenada está vazia
-                pSorted = pCurrent;
-                pSorted->pPrev = nullptr;
-                pSorted->pNext = nullptr;
+                ptrSorted = ptrCurrent;
+                ptrSorted->ptrPrev = nullptr;
+                ptrSorted->ptrNext = nullptr;
             } else {
-                NodeList* pLastNode = pSorted;
-                while (pLastNode->pNext != nullptr) {
-                    pLastNode = pLastNode->pNext;
+                NodeList* ptrLastNode = ptrSorted;
+                while (ptrLastNode->ptrNext != nullptr) {
+                    ptrLastNode = ptrLastNode->ptrNext;
                 }
-                pLastNode->pNext = pCurrent;
-                pCurrent->pPrev = pLastNode;
-                pCurrent->pNext = nullptr;
+                ptrLastNode->ptrNext = ptrCurrent;
+                ptrCurrent->ptrPrev = ptrLastNode;
+                ptrCurrent->ptrNext = nullptr;
             }
         } else {
             // O nó atual deve ser inserido antes de pSortedCurrent
-            NodeList* pPrevNode = pSortedCurrent->pPrev;
+            NodeList* ptrPrevNode = ptrSortedCurrent->ptrPrev;
 
-            if (pPrevNode != nullptr) {
-                pPrevNode->pNext = pCurrent;
+            if (ptrPrevNode != nullptr) {
+                ptrPrevNode->ptrNext = ptrCurrent;
             } else {
-                pSorted = pCurrent;
+                ptrSorted = ptrCurrent;
             }
 
-            pSortedCurrent->pPrev = pCurrent;
-            pCurrent->pPrev = pPrevNode;
-            pCurrent->pNext = pSortedCurrent;
+            ptrSortedCurrent->ptrPrev = ptrCurrent;
+            ptrCurrent->ptrPrev = ptrPrevNode;
+            ptrCurrent->ptrNext = ptrSortedCurrent;
         }
 
-        pCurrent = pNextNode;
+        ptrCurrent = ptrNextNode;
     }
 
     // Atualiza a cabeça e a cauda da lista original
-    *ppHead = pSorted;
-    NodeList* pLastNode = pSorted;
-    while (pLastNode->pNext != nullptr) {
-        pLastNode = pLastNode->pNext;
+    *ptrptrHead = ptrSorted;
+    NodeList* ptrLastNode = ptrSorted;
+    while (ptrLastNode->ptrNext != nullptr) {
+        ptrLastNode = ptrLastNode->ptrNext;
     }
-    *ppTail = pLastNode;
+    *ptrptrTail = ptrLastNode;
 }
 
 // ================================================================================= //
 //16. Uma das opções deve converter a árvore em uma lista e ordenar com Shell Sort
 // ================================================================================= //
 
-void shellSort(NodeList** ppHead, NodeList** ppTail) {
+void shellSort(NodeList** ptrptrHead, NodeList** ptrptrTail) {
     int nSize = 0; // Tamanho da lista
-    NodeList* pCurrent = *ppHead;
+    NodeList* ptrCurrent = *ptrptrHead;
 
     // Conta o tamanho da lista
-    while (pCurrent != nullptr) {
-        pCurrent = pCurrent->pNext;
+    while (ptrCurrent != nullptr) {
+        ptrCurrent = ptrCurrent->ptrNext;
         nSize++;
     }
 
@@ -343,27 +344,27 @@ void shellSort(NodeList** ppHead, NodeList** ppTail) {
     while (nInterval > 0) {
         // Percorre a lista com o intervalo atual
         for (int i = nInterval; i < nSize; i++) {
-            NodeList* pCurrent = *ppHead;
+            NodeList* ptrCurrent = *ptrptrHead;
 
             // Vai até o nó na posição i
             for (int j = 0; j < i; j++) {
-                pCurrent = pCurrent->pNext;
+                ptrCurrent = ptrCurrent->ptrNext;
             }
-            NodeList* pPrev = pCurrent->pPrev;
+            NodeList* ptrPrev = ptrCurrent->ptrPrev;
 
             // Realiza a comparação e troca dos nós conforme necessário
-            while (pPrev != nullptr && pCurrent != nullptr && pPrev->nData > pCurrent->nData) {
-                swapNode(ppHead, ppTail, pPrev, pCurrent);
+            while (ptrPrev != nullptr && ptrCurrent != nullptr && ptrPrev->iData > ptrCurrent->iData) {
+                swapNode(ptrptrHead, ptrptrTail, ptrPrev, ptrCurrent);
 
-                // Atualiza os ponteiros pPrev e pCurrent
-                NodeList* pTemp = pPrev;
-                pPrev = pCurrent;
-                pCurrent = pTemp;
-                pCurrent = pCurrent->pPrev;
+                // Atualiza os ponteiros ptrPrev e ptrCurrent
+                NodeList* ptrTemp = ptrPrev;
+                ptrPrev = ptrCurrent;
+                ptrCurrent = ptrTemp;
+                ptrCurrent = ptrCurrent->ptrPrev;
 
                 // Retrocede para trás pelo intervalo
-                if (pPrev != nullptr)
-                    pPrev = pPrev->pPrev;
+                if (ptrPrev != nullptr)
+                    ptrPrev = ptrPrev->ptrPrev;
             }
         }
 
