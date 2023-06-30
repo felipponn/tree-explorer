@@ -206,7 +206,7 @@ struct Node* constructTreeFromUserInput()
         // contrário, o programa volta a pedir um valor
         if (iData == 0)
         {
-            cout << "Você realmente deseja sair? (S/s): ";
+            cout << "Voce realmente deseja sair? (S/s): ";
             char cAnswer;
             cin >> cAnswer;
             if (cAnswer == 'S' || cAnswer == 's') break;
