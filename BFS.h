@@ -1,3 +1,5 @@
+#ifndef BFS_H
+#define BFS_H
 #include <iostream>
 
 struct queueNode
@@ -23,3 +25,5 @@ struct Node *dequeue(struct queue *ptrQueue);
 bool isQueueEmpty(struct queue *ptrQueue);
 
 void printTreeBFS(struct Node *ptrRoot);
+
+#endif

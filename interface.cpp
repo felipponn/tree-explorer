@@ -1,9 +1,10 @@
 #include <iostream>
 #include <chrono>
-#include "create_tree.cpp"
-#include "tree_infos.cpp"
-#include "BFS.cpp"
-#include "sort_list.cpp"
+#include "create_tree.h"
+#include "tree_infos.h"
+#include "BFS.h"
+#include "sort_list.h"
+#include "struct_node.h"
 
 using namespace std;
 using namespace std::chrono;

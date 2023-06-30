@@ -1,14 +1,9 @@
 #include <iostream>
 #include <fstream>
+#include "struct_node.h"
 
 using namespace std;
 
-struct Node
-{
-    int iPayload;
-    struct Node* ptrLeft;
-    struct Node* ptrRight;
-};
 
 ////////////////////////////////////////////////////////////////////////////////
 /*                         Função que cria um novo nó                         */

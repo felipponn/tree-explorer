@@ -1,5 +1,6 @@
 #include <iostream>
-#include "interface.cpp"
+#include"struct_node.h"
+#include "interface.h"
 
 using namespace std;
 

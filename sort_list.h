@@ -1,3 +1,5 @@
+#ifndef SORT_LIST_H
+#define SORT_LIST_H
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -36,3 +38,5 @@ void insertionSort(NodeList** ptrptrHead, NodeList** ptrptrTail);
 // Ordena uma lista duplamente encadeada usando o algoritmo Shell Sort
 void shellSort(NodeList** ptrptrHead, NodeList** ptrptrTail);
 
+
+#endif

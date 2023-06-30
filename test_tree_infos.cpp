@@ -1,6 +1,7 @@
 #include<iostream>
 #include"create_tree.h"
 #include"tree_infos.h"
+#include"struct_node.h"
 
 using namespace std;
 

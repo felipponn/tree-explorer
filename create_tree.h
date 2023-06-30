@@ -1,13 +1,9 @@
+#ifndef CREATE_TREE_H
+#define CREATE_TREE_H
 #include <iostream>
 #include <fstream>
 using namespace std;
 
-struct Node
-{
-    int iPayload;
-    struct Node* ptrLeft;
-    struct Node* ptrRight;
-};
 
 // Cria um novo nó
 struct Node* newNode(int iData);
@@ -35,3 +31,5 @@ struct Node* constructTreeFromFile(const string& strFileName);
 
 // Constrói uma árvore binária de busca a partir de dados inseridos pelo usuário
 struct Node* constructTreeFromUserInput();
+
+#endif

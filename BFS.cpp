@@ -1,4 +1,5 @@
 #include <iostream>
+#include "struct_node.h"
 
 using namespace std;
 

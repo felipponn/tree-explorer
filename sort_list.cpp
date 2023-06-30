@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include "struct_node.h"
 
 using namespace std;
 
@@ -9,13 +10,6 @@ using namespace std;
 // Notação seguida: https://pt.wikipedia.org/wiki/Nota%C3%A7%C3%A3o_h%C3%BAngara
 // ================================================================================= //
 
-// Estrutura para um nó da árvore binária
-// struct Node
-// {
-//     int iPayload;
-//     struct Node* ptrLeft;
-//     struct Node* ptrRight;
-// };
 
 // Estrutura para um nó da lista duplamente encadeada
 struct NodeList {

@@ -1,13 +1,7 @@
 # include <iostream>
+# include "struct_node.h"
 
 using namespace std;
-
-struct Node
-{
-    int iPayload;
-    struct Node* ptrLeft;
-    struct Node* ptrRight;
-};
 
 int height(struct Node* node)
 {

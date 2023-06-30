@@ -2,6 +2,7 @@
 #include <fstream>
 #include "create_tree.h"
 #include "sort_list.h"
+#include "struct_node.h"
 
 using namespace std;
 
