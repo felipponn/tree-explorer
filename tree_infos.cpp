@@ -2,6 +2,13 @@
 
 using namespace std;
 
+struct Node
+{
+    int iPayload;
+    struct Node* ptrLeft;
+    struct Node* ptrRight;
+};
+
 int height(struct Node* node)
 {
     if (node == nullptr) // caso base
@@ -20,6 +27,8 @@ int size(struct Node* node)
 
 bool full(struct Node* node)
 {
+    if (node == nullptr) // caso base
+        return true;
     if (node->ptrRight == nullptr || node->ptrLeft == nullptr) // caso base
         if (node->ptrRight == nullptr && node->ptrLeft == nullptr) // verifica se o nó é folha
             return true;
