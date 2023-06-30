@@ -174,7 +174,7 @@ bool escolha(struct Node **ptrRoot)
         transicao();
         return false;
     case 10:
-        cout << "Opção 10 - Exibir a arvore BFS" << endl;
+        cout << "Opcao 10 - Exibir a arvore BFS" << endl;
         timeStart = high_resolution_clock::now();
         printTreeBFS(*ptrRoot);
         timeStop = high_resolution_clock::now();
