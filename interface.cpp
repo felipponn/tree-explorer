@@ -1,10 +1,12 @@
 #include <iostream>
+#include <chrono>
 #include "create_tree.cpp"
 #include "tree_infos.cpp"
 #include "BFS.cpp"
 #include "sort_list.cpp"
 
 using namespace std;
+using namespace std::chrono;
 
 void tela()
 {
@@ -24,12 +26,24 @@ void transicao()
     cin.get();
 }
 
+void tempoExec(chrono::duration<double, milli> timeDuration)
+{
+    cout << "Tempo de execucao: " << timeDuration.count() << " milissegundos." << endl;
+}
+
 bool escolha(struct Node **ptrRoot)
 {
     int iOpcao, iData;
+
     NodeList* ptrHead = nullptr;
     NodeList* ptrTail = nullptr;
+    
     string strFileName, strConfirma;
+    
+    auto timeStart = high_resolution_clock::now();
+    auto timeStop = high_resolution_clock::now();
+    auto timeDuration = duration<double, milli>(timeStop - timeStart);
+    
     cin >> iOpcao;
     switch (iOpcao)
     {
@@ -53,10 +67,14 @@ bool escolha(struct Node **ptrRoot)
         cout << "Opcao 1 - Criar BST a partir de .txt" << endl;
         cout << "Insira o nome do arquivo:" << endl;
         cin >> strFileName;
+        timeStart = high_resolution_clock::now();
         *ptrRoot = constructTreeFromFile(strFileName);
+        timeStop = high_resolution_clock::now();
+        timeDuration = duration<double, milli>(timeStop - timeStart);
         if (ptrRoot != nullptr)
         {
             cout << "Arvore criada com sucesso!" << endl;
+            tempoExec(timeDuration);
             transicao();
         }
         else
@@ -67,65 +85,101 @@ bool escolha(struct Node **ptrRoot)
         return false;
     case 2:
         cout << "Opcao 2 - Digite dados para criar uma BST" << endl;
+        timeStart = high_resolution_clock::now();
         *ptrRoot = constructTreeFromUserInput();
+        timeStop = high_resolution_clock::now();
+        timeDuration = duration<double, milli>(timeStop - timeStart);
         cout << "Arvore criada com sucesso!" << endl;
+        tempoExec(timeDuration);
         transicao();
         return false;
     case 3:
         cout << "Opcao 3 - Retornar a altura da arvore" << endl;
+        timeStart = high_resolution_clock::now();
         cout << "Altura da arvore: " << height(*ptrRoot) << endl;
+        timeStop = high_resolution_clock::now();
+        timeDuration = duration<double, milli>(timeStop - timeStart);
+        tempoExec(timeDuration);
         transicao();
         return false;
     case 4:
         cout << "Opcao 4 - Retornar o tamanho da arvore" << endl;
+        timeStart = high_resolution_clock::now();
         cout << "Tamanho da arvore: " << size(*ptrRoot) << endl;
+        timeStop = high_resolution_clock::now();
+        timeDuration = duration<double, milli>(timeStop - timeStart);
+        tempoExec(timeDuration);
         transicao();
         return false;
     case 5:
         cout << "Opcao 5 - Insira um novo dado na arvore" << endl;
         cout << "Insira o dado:" << endl;
         cin >> iData;
+        timeStart = high_resolution_clock::now();
         *ptrRoot = insertNode(*ptrRoot, iData);
+        timeStop = high_resolution_clock::now();
+        timeDuration = duration<double, milli>(timeStop - timeStart);
         cout << "Dado inserido com sucesso!" << endl;
+        tempoExec(timeDuration);
         transicao();
         return false;
     case 6:
         cout << "Opcao 6 - Remova um dado da arvore" << endl;
         cout << "Insira o dado:" << endl;
         cin >> iData;
+        timeStart = high_resolution_clock::now();
         *ptrRoot = deleteNode(*ptrRoot, iData);
+        timeStop = high_resolution_clock::now();
+        timeDuration = duration<double, milli>(timeStop - timeStart);
         cout << "Dado removido com sucesso!" << endl;
+        tempoExec(timeDuration);
         transicao();
         return false;
     case 7:
         cout << "Opcao 7 - Retornar o endereco de um elemento" << endl;
         cout << "Insira o dado:" << endl;
         cin >> iData;
+        timeStart = high_resolution_clock::now();
         if (searchNode(*ptrRoot, iData) == 0)
             cout << "Dado nao encontrado." << endl;
         else
             cout << "Endereco do dado: " << searchNode(*ptrRoot, iData) << endl;
+        timeStop = high_resolution_clock::now();
+        timeDuration = duration<double, milli>(timeStop - timeStart);
+        tempoExec(timeDuration);
         transicao();
         return false;
     case 8:
         cout << "Opcao 8 - Retornar se a arvore eh completa" << endl;
+        timeStart = high_resolution_clock::now();
         if (complete(*ptrRoot))
             cout << "A arvore eh completa." << endl;
         else
             cout << "A arvore nao eh completa." << endl;
+        timeStop = high_resolution_clock::now();
+        timeDuration = duration<double, milli>(timeStop - timeStart);
+        tempoExec(timeDuration);
         transicao();
         return false;
     case 9:
         cout << "Opcao 9 - Retornar se a arvore eh perfeita" << endl;
+        timeStart = high_resolution_clock::now();
         if (perfect(*ptrRoot))
             cout << "A arvore eh perfeita." << endl;
         else
             cout << "A arvore nao eh perfeita." << endl;
+        timeStop = high_resolution_clock::now();
+        timeDuration = duration<double, milli>(timeStop - timeStart);
+        tempoExec(timeDuration);
         transicao();
         return false;
     case 10:
         cout << "Opção 10 - Exibir a arvore BFS" << endl;
+        timeStart = high_resolution_clock::now();
         printTreeBFS(*ptrRoot);
+        timeStop = high_resolution_clock::now();
+        timeDuration = duration<double, milli>(timeStop - timeStart);
+        tempoExec(timeDuration);
         transicao();
         return false;
     case 11:
@@ -135,6 +189,7 @@ bool escolha(struct Node **ptrRoot)
         cout << "1 - In-ordem" << endl;
         cout << "2 - Pos-ordem" << endl;
         cin >> iData;
+        timeStart = high_resolution_clock::now();
         switch (iData)
         {
         case 0:
@@ -156,6 +211,9 @@ bool escolha(struct Node **ptrRoot)
             cout << "Opcao invalida." << endl;
             break;
         }
+        timeStop = high_resolution_clock::now();
+        timeDuration = duration<double, milli>(timeStop - timeStart);
+        tempoExec(timeDuration);
         transicao();
         return false;
     case 12:
@@ -166,6 +224,7 @@ bool escolha(struct Node **ptrRoot)
         cout << "2 - Insertion Sort" << endl;
         cout << "3 - Shell Sort" << endl;
         cin >> iData;
+        timeStart = high_resolution_clock::now();
         switch (iData)
         {
         case 0:
@@ -212,6 +271,9 @@ bool escolha(struct Node **ptrRoot)
             cout << "Opcao invalida." << endl;
             break;
         }
+        timeStop = high_resolution_clock::now();
+        timeDuration = duration<double, milli>(timeStop - timeStart);
+        tempoExec(timeDuration);
         transicao();
         return false;
     default:
