@@ -105,7 +105,7 @@ bool escolha(struct Node **ptrRoot)
         return false;
     case 8:
         cout << "Opcao 8 - Retornar se a arvore eh completa" << endl;
-        if (full(*ptrRoot))
+        if (complete(*ptrRoot))
             cout << "A arvore eh completa." << endl;
         else
             cout << "A arvore nao eh completa." << endl;
