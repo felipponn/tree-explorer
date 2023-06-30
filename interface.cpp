@@ -9,7 +9,7 @@ void tela()
 {
     string strTelaInicio = 
     " _________________________________________________________________________________\n/\\                                                                                \\\n\\_|   ___________ _____ _____   _______   ________ _     ___________ ___________  |\n  |  |_   _| ___ \\  ___|  ___| |  ___\\ \\ / /| ___ \\ |   |  _  | ___ \\  ___| ___ \\ |\n  |    | | | |_/ / |__ | |__   | |__  \\ V / | |_/ / |   | | | | |_/ / |__ | |_/ / |\n  |    | | |    /|  __||  __|  |  __| /   \\ |  __/| |   | | | |    /|  __||    /  |\n  |    | | | |\\ \\| |___| |___  | |___/ /^\\ \\| |   | |___\\ \\_/ / |\\ \\| |___| |\\ \\  |\n  |    \\_/ \\_| \\_\\____/\\____/  \\____/\\/   \\/\\_|   \\_____/\\___/\\_| \\_\\____/\\_| \\_| |\n  |   ____________________________________________________________________________|_\n   \\_/_____________________________________________________________________________/";
-    string strOpcoes = "\t*---------------------------------------*----------------------------------------*\n\t|                              0 - Sair do programa                              |\n\t*---------------------------------------*----------------------------------------*\n\t| 1 - Criar BST a partir de .txt        | 6 - Remova um dado da arvore           |\n\t| 2 - Digite dados para criar uma BST   | 7 - Retornar o endereco de um elemento |\n\t| 3 - Retornar a altura da arvore       | 8 - Retornar se a arvore eh completa   |\n\t| 4 - Retornar o tamanho da arvore      | 9 - Retornar se a arvore eh perfeita   |\n\t| 5 - Insira um novo dado na arvore     | 10 - Exibir a arvore BFS               |\n\t*---------------------------------------*----------------------------------------*\n\t| 11 - Converter a árvore em lista e ordenar (escolher algoritmo)                |\n\t*--------------------------------------------------------------------------------*";
+    string strOpcoes = "\t*---------------------------------------*----------------------------------------*\n\t|                              0 - Sair do programa                              |\n\t*---------------------------------------*----------------------------------------*\n\t| 1 - Criar BST a partir de .txt        | 6 - Remova um dado da arvore           |\n\t| 2 - Digite dados para criar uma BST   | 7 - Retornar o endereco de um elemento |\n\t| 3 - Retornar a altura da arvore       | 8 - Retornar se a arvore eh completa   |\n\t| 4 - Retornar o tamanho da arvore      | 9 - Retornar se a arvore eh perfeita   |\n\t| 5 - Insira um novo dado na arvore     | 10 - Exibir a arvore BFS               |\n\t*---------------------------------------*----------------------------------------*\n\t| 11 - Fazer a travessia da arvore (escolha a ordem)                             |\n\t*---------------------------------------*----------------------------------------*\n\t| 12 - Converter a arvore em lista e ordenar (escolher algoritmo)                |\n\t*--------------------------------------------------------------------------------*";
     cout << strTelaInicio << endl;
     cout << "           |                      INSIRA A OPERACAO DESEJADA                  |" << endl;
     cout << "           \\__________________________________________________________________/" << endl;
@@ -126,10 +126,40 @@ bool escolha(struct Node **ptrRoot)
         transicao();
         return false;
     case 11:
-        cout << "Opção 11 - Converter a árvore em lista e ordenar (escolher algoritmo)" << endl;
+        cout << "Opcao 11 - Fazer a travessia da arvore (escolha a ordem)" << endl;
+        cout << "Insira a ordem desejada:" << endl;
+        cout << "0 - Pre-ordem" << endl;
+        cout << "1 - In-ordem" << endl;
+        cout << "2 - Pos-ordem" << endl;
+        cin >> iData;
+        switch (iData)
+        {
+        case 0:
+            cout << "Pre-ordem:" << endl;
+            traversePreOrder(*ptrRoot);
+            cout << endl;
+            break;
+        case 1:
+            cout << "In-ordem:" << endl;
+            traverseInOrder(*ptrRoot);
+            cout << endl;
+            break;
+        case 2:
+            cout << "Pos-ordem:" << endl;
+            traversePostOrder(*ptrRoot);
+            cout << endl;
+            break;
+        default:
+            cout << "Opcao invalida" << endl;
+            break;
+        }
+        transicao();
+        return false;
+    case 12:
+        cout << "Opcao 12 - Converter a arvore em lista e ordenar (escolher algoritmo)" << endl;
         return false;
     default:
-        cout << "Opção inválida" << endl;
+        cout << "Opcao invalida" << endl;
         return false;
     }
 }
