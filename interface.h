@@ -3,4 +3,6 @@
 
 void tela();
 
+void transicao();
+
 bool escolha(struct Node **ptrRoot);
