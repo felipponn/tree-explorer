@@ -2,6 +2,7 @@
 #include "create_tree.cpp"
 #include "tree_infos.cpp"
 #include "BFS.cpp"
+#include "sort_list.cpp"
 
 using namespace std;
 
@@ -9,7 +10,7 @@ void tela()
 {
     string strTelaInicio = 
     " _________________________________________________________________________________\n/\\                                                                                \\\n\\_|   ___________ _____ _____   _______   ________ _     ___________ ___________  |\n  |  |_   _| ___ \\  ___|  ___| |  ___\\ \\ / /| ___ \\ |   |  _  | ___ \\  ___| ___ \\ |\n  |    | | | |_/ / |__ | |__   | |__  \\ V / | |_/ / |   | | | | |_/ / |__ | |_/ / |\n  |    | | |    /|  __||  __|  |  __| /   \\ |  __/| |   | | | |    /|  __||    /  |\n  |    | | | |\\ \\| |___| |___  | |___/ /^\\ \\| |   | |___\\ \\_/ / |\\ \\| |___| |\\ \\  |\n  |    \\_/ \\_| \\_\\____/\\____/  \\____/\\/   \\/\\_|   \\_____/\\___/\\_| \\_\\____/\\_| \\_| |\n  |   ____________________________________________________________________________|_\n   \\_/_____________________________________________________________________________/";
-    string strOpcoes = "\t*---------------------------------------*----------------------------------------*\n\t|                              0 - Sair do programa                              |\n\t*---------------------------------------*----------------------------------------*\n\t| 1 - Criar BST a partir de .txt        | 6 - Remova um dado da arvore           |\n\t| 2 - Digite dados para criar uma BST   | 7 - Retornar o endereco de um elemento |\n\t| 3 - Retornar a altura da arvore       | 8 - Retornar se a arvore eh completa   |\n\t| 4 - Retornar o tamanho da arvore      | 9 - Retornar se a arvore eh perfeita   |\n\t| 5 - Insira um novo dado na arvore     | 10 - Exibir a arvore BFS               |\n\t*---------------------------------------*----------------------------------------*\n\t| 11 - Fazer a travessia da arvore (escolha a ordem)                             |\n\t*---------------------------------------*----------------------------------------*\n\t| 12 - Converter a arvore em lista e ordenar (escolher algoritmo)                |\n\t*--------------------------------------------------------------------------------*";
+    string strOpcoes = "\t*---------------------------------------*----------------------------------------*\n\t|                              0 - Sair do programa                              |\n\t*---------------------------------------*----------------------------------------*\n\t| 1 - Criar BST a partir de .txt        | 6 - Remova um dado da arvore           |\n\t| 2 - Digite dados para criar uma BST   | 7 - Retornar o endereco de um elemento |\n\t| 3 - Retornar a altura da arvore       | 8 - Retornar se a arvore eh completa   |\n\t| 4 - Retornar o tamanho da arvore      | 9 - Retornar se a arvore eh perfeita   |\n\t| 5 - Insira um novo dado na arvore     | 10 - Exibir a arvore BFS               |\n\t*---------------------------------------*----------------------------------------*\n\t| 11 - Fazer a travessia da arvore (escolha a ordem)                             |\n\t*---------------------------------------*----------------------------------------*\n\t| 12 - Converter a arvore em lista (pre-ordem) e ordenar (escolher algoritmo)    |\n\t*--------------------------------------------------------------------------------*";
     cout << strTelaInicio << endl;
     cout << "           |                      INSIRA A OPERACAO DESEJADA                  |" << endl;
     cout << "           \\__________________________________________________________________/" << endl;
@@ -26,6 +27,8 @@ void transicao()
 bool escolha(struct Node **ptrRoot)
 {
     int iOpcao, iData;
+    NodeList* ptrHead = nullptr;
+    NodeList* ptrTail = nullptr;
     string strFileName, strConfirma;
     cin >> iOpcao;
     switch (iOpcao)
@@ -150,13 +153,66 @@ bool escolha(struct Node **ptrRoot)
             cout << endl;
             break;
         default:
-            cout << "Opcao invalida" << endl;
+            cout << "Opcao invalida." << endl;
             break;
         }
         transicao();
         return false;
     case 12:
         cout << "Opcao 12 - Converter a arvore em lista e ordenar (escolher algoritmo)" << endl;
+        cout << "Insira o algoritmo desejado:" << endl;
+        cout << "0 - Bubble Sort" << endl;
+        cout << "1 - Selection Sort" << endl;
+        cout << "2 - Insertion Sort" << endl;
+        cout << "3 - Shell Sort" << endl;
+        cin >> iData;
+        switch (iData)
+        {
+        case 0:
+            cout << "Bubble Sort:" << endl;
+            treeToDoublyLinkedList(*ptrRoot, &ptrHead, &ptrTail);
+            cout << "Arvore em pre-ordem: ";
+            printList(ptrHead);
+
+            cout << "Lista ordenada: ";
+            bubbleSort(&ptrHead, &ptrTail);
+            printList(ptrHead);
+            break;
+        case 1:
+            cout << "Selection Sort:" << endl;
+            treeToDoublyLinkedList(*ptrRoot, &ptrHead, &ptrTail);
+            cout << "Arvore em pre-ordem: ";
+            printList(ptrHead);
+
+            cout << "Lista ordenada: ";
+            selectionSort(&ptrHead, &ptrTail);
+            printList(ptrHead);
+            break;
+        case 2:
+            cout << "Insertion Sort:" << endl;
+            treeToDoublyLinkedList(*ptrRoot, &ptrHead, &ptrTail);
+            cout << "Arvore em pre-ordem: ";
+            printList(ptrHead);
+
+            cout << "Lista ordenada: ";
+            insertionSort(&ptrHead, &ptrTail);
+            printList(ptrHead);
+            break;
+        case 3:
+            cout << "Shell Sort:" << endl;
+            treeToDoublyLinkedList(*ptrRoot, &ptrHead, &ptrTail);
+            cout << "Arvore em pre-ordem: ";
+            printList(ptrHead);
+
+            cout << "Lista ordenada: ";
+            shellSort(&ptrHead, &ptrTail);
+            printList(ptrHead);
+            break;
+        default:
+            cout << "Opcao invalida." << endl;
+            break;
+        }
+        transicao();
         return false;
     default:
         cout << "Opcao invalida" << endl;
