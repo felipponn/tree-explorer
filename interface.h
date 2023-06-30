@@ -1,6 +1,6 @@
 #include <iostream>
-#include "create_tree.cpp"
+#include "create_tree.h"
 
 void tela();
 
-bool escolha(struct Node *ptrRoot);
+bool escolha(struct Node **ptrRoot);

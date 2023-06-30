@@ -2,13 +2,6 @@
 
 using namespace std;
 
-struct Node
-{
-    int iPayload;
-    struct Node* ptrLeft;
-    struct Node* ptrRight;
-};
-
 int height(struct Node* node)
 {
     if (node == nullptr) // caso base

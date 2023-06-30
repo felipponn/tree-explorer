@@ -10,7 +10,7 @@ int main()
     while (!bExit)
     {
         tela();
-        bExit = escolha(ptrRoot);
+        bExit = escolha(&ptrRoot);
     }
     return 0;
 }
