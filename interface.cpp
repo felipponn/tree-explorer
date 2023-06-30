@@ -13,47 +13,50 @@ void tela()
     cout << strOpcoes << endl;
 }
 
-void escolha()
+bool escolha()
 {
     int iOpcao;
     cin >> iOpcao;
     switch (iOpcao)
     {
+    case 0:
+        cout << "Opção 0 - Sair" << endl;
+        return true;
     case 1:
         cout << "Opção 1 - Criar BST a partir de .txt" << endl;
-        break;
+        return false;
     case 2:
         cout << "Opção 2 - Digite dados para criar uma BST" << endl;
-        break;
+        return false;
     case 3:
         cout << "Opção 3 - Retornar a altura da árvore" << endl;
-        break;
+        return false;
     case 4:
         cout << "Opção 4 - Retornar o tamanho da árvore" << endl;
-        break;
+        return false;
     case 5:
         cout << "Opção 5 - Insira um novo dado na árvore" << endl;
-        break;
+        return false;
     case 6:
         cout << "Opção 6 - Remova um dado da árvore" << endl;
-        break;
+        return false;
     case 7:
         cout << "Opção 7 - Retornar o endereço de um elemento" << endl;
-        break;
+        return false;
     case 8:
         cout << "Opção 8 - Retornar se a árvore é completa" << endl;
-        break;
+        return false;
     case 9:
         cout << "Opção 9 - Retornar se a árvore é perfeita" << endl;
-        break;
+        return false;
     case 10:
         cout << "Opção 10 - Exibir a árvore BFS" << endl;
-        break;
+        return false;
     case 11:
         cout << "Opção 11 - Converter a árvore em lista e ordenar (escolher algoritmo)" << endl;
-        break;
+        return false;
     default:
         cout << "Opção inválida" << endl;
-        break;
+        return false;
     }
 }

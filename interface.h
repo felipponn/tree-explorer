@@ -2,4 +2,4 @@
 
 void tela();
 
-void escolha();
+bool escolha();

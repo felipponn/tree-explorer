@@ -1,11 +1,16 @@
 #include <iostream>
 #include "interface.cpp"
+#include "create_tree.cpp"
 
 using namespace std;
 
 int main()
 {
-    tela();
-    escolha();
+    bool bExit = false;
+    while (!bExit)
+    {
+        tela();
+        bExit = escolha();
+    }
     return 0;
 }
