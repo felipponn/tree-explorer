@@ -1,16 +1,16 @@
 #include <iostream>
 #include "interface.cpp"
-#include "create_tree.cpp"
 
 using namespace std;
 
 int main()
 {
     bool bExit = false;
+    struct Node *ptrRoot = nullptr;
     while (!bExit)
     {
         tela();
-        bExit = escolha();
+        bExit = escolha(ptrRoot);
     }
     return 0;
 }
