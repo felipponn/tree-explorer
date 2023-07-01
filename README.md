@@ -33,7 +33,7 @@ Certifique-se de ter os seguintes requisitos instalados em sua máquina:
 ## Como usar
 
 1. Clone o repositório do Tree Explorer em sua máquina local: ```git clone https://github.com/seu-usuario/tree-explorer.git```
-2. No diretório do projeto, compile e execute o código-fonte: ```make main```
+2. No diretório do projeto, compile e execute o código-fonte: ```make main```, ou ```g++ -o main.exe main.cpp interface.cpp create_tree.cpp tree_infos.cpp BFS.cpp sort_list.cpp``` seguido de ```./main.exe```
 3. Siga as instruções exibidas no menu para interagir com as funcionalidades do Tree Explorer.
 
-Importante notar que neste repositório também estão disponíveis _drivers_ que testam as funções implementadas por nós. Para tanto, você pode executar comandos como ```make test_create_tree```, ```make test_tree_infos``` ou ```make test_sort_list```.
+Importante notar que neste repositório também estão disponíveis _drivers_ que testam as funções implementadas por nós. Para tanto, você pode executar comandos como ```make test_create_tree```, ```make test_tree_infos``` ou ```make test_sort_list```. Também pode ser executado na linha de comando ```g++ test_{NOME}.cpp {NOME}.cpp -o test_{NOME}.exe``` seguido de ```./test_{NOME}.exe```, substituindo ```{NOME}``` por ```create_tree```, ```tree_infos``` ou ```sort_list```.
