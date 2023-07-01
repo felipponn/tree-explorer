@@ -278,7 +278,8 @@ bool escolha(struct Node **ptrRoot)
         transicao();
         return false;
     default:
-        cout << "Opcao invalida" << endl;
+        cout << "Opcao invalida." << endl;
+        transicao();
         return false;
     }
 }

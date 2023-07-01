@@ -20,7 +20,7 @@ struct NodeList {
 
 // Função para criar um novo nó
 NodeList* createNode(int iData) {
-    NodeList* ptrNewNode = new NodeList;
+    NodeList* ptrNewNode = (struct NodeList*)malloc(sizeof(NodeList));
     ptrNewNode->iData = iData;
     ptrNewNode->ptrPrev = nullptr;
     ptrNewNode->ptrNext = nullptr;

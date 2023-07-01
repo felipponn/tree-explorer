@@ -12,7 +12,7 @@ using namespace std;
 // Cria um novo nó
 struct Node* newNode(int iData)
 {
-    struct Node* newNode = new Node;
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->iPayload = iData;
     newNode->ptrLeft = nullptr;
     newNode->ptrRight = nullptr;
